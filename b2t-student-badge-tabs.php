@@ -11,6 +11,8 @@
  *
  * @package         B2t_Student_Badge_Tabs
  */
+define( 'BADGE_PORTAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'BADGE_PORTAL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // Initialize Plugin Updates
 require_once ( plugin_dir_path( __FILE__ ) . 'lib/classes/plugin-updater.php' );
@@ -25,7 +27,24 @@ if( is_admin() ){
     } );
 }
 
+/**
+ * Check whether the currently viewed page is an endpoint
+ *
+ * @param      string  $endpoint  The endpoint
+ *
+ * @return     boolean  Returns TRUE if is an endpoint.
+ */
+function b2t_is_endpoint( $endpoint = false ){
+    global $wp_query;
+
+    if( ! $wp_query )
+        return false;
+
+    return isset( $wp_query->query[ $endpoint ] );
+}
+
 // Include files
 require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/content.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/endpoints.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/enqueues.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/woocommerce.php' );

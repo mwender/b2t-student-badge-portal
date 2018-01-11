@@ -8,7 +8,10 @@ namespace B2TBadges\fns\content;
  * Classes tab content
  */
 function classes_endpoint_content() {
-    echo 'Classes tab content.';
+?>
+<h2>Classes</h2>
+<p>Please see below for a historical listing of classes and exams that you have completed with B2T Training.</p>
+<?php
 }
 add_action( 'woocommerce_account_classes_endpoint', __NAMESPACE__ . '\\classes_endpoint_content' );
 
@@ -16,6 +19,10 @@ add_action( 'woocommerce_account_classes_endpoint', __NAMESPACE__ . '\\classes_e
  * Certification tab content
  */
 function certification_endpoint_content() {
-    echo 'Certification tab content.';
+?>
+<h2>Certification Program</h2>
+<p>Use this page to track your progress towards earning badges: Agile Analyst Practioner, BA Associate, and BA Certified.</p>
+<div id="badge-display"></div>
+<?php
 }
 add_action( 'woocommerce_account_certification_endpoint', __NAMESPACE__ . '\\certification_endpoint_content' );

@@ -1,0 +1,17 @@
+<!-- Handlebars -->
+<script id="badge-template" type="text/x-handlebars-template">
+    <div class="badge">
+        <ul>
+        <li>Badge: {{name}}</li>
+        <li>Completed: {{completed}}</li>
+        <li>Date Completed: {{completed_date}}</li>
+        <li>Criteria:<br/>
+          <ul>
+          {{#each criteria}}
+            <li>{{name}}, Completed: {{completed}}, Date Completed: {{completed_date}}</li>
+          {{/each}}
+          </ul>
+        </li>
+        </ul>
+    </div>
+</script>
