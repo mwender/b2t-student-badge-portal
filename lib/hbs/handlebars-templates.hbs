@@ -1,17 +1,20 @@
 <!-- Handlebars -->
 <script id="badge-template" type="text/x-handlebars-template">
-    <div class="badge">
-        <ul>
-        <li>Badge: {{name}}</li>
-        <li>Completed: {{completed}}</li>
-        <li>Date Completed: {{completed_date}}</li>
-        <li>Criteria:<br/>
-          <ul>
-          {{#each criteria}}
-            <li>{{name}}, Completed: {{completed}}, Date Completed: {{completed_date}}</li>
-          {{/each}}
-          </ul>
-        </li>
-        </ul>
+    <div class="badge-container" id="{{slug}}-badge">
+      <div class="row">
+        <div class="col-3 aligncenter">
+          {{#if image}}
+          <img src="{{image}}" class="{{#if completed}}completed{{/if}}" alt="{{name}}" />
+          {{else}}
+          <h4>{{name}}</h4>
+          {{/if}}
+          {{#if completed}}
+          <button class="add-to-backpack" data-badge="{{slug}}" data-completed="{{completed_date}}">Add to Backpack</button>
+          {{/if}}
+        </div>
+        <div class="col-9">
+          {{{criteriaHtml}}}
+        </div>
+      </div>
     </div>
 </script>

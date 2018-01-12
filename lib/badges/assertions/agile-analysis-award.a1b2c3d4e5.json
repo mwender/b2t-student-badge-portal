@@ -1,0 +1,14 @@
+{
+  "uid": "a1b2c3d4e5",
+  "recipient": {
+    "type": "email",
+    "identity": "webmaster@b2ttraining.com",
+    "hashed": false
+  },
+  "issuedOn":  1515701847,
+  "badge": "https://badges.b2ttraining.com/agile-analysis-badge-class.json",
+  "verify": {
+    "type": "hosted",
+    "url": "https://badges.b2ttraining.com/assertions/agile-analysis-award.a1b2c3d4e5.json"
+  }
+}

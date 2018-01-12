@@ -13,6 +13,10 @@
  */
 define( 'BADGE_PORTAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BADGE_PORTAL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'BADGE_API_NAMESPACE', 'b2tbadges/v1' );
+
+// Load libraries
+require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
 
 // Initialize Plugin Updates
 require_once ( plugin_dir_path( __FILE__ ) . 'lib/classes/plugin-updater.php' );
@@ -44,7 +48,8 @@ function b2t_is_endpoint( $endpoint = false ){
 }
 
 // Include files
-require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/content.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/endpoints.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/enqueues.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'lib/fns/woocommerce.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/badge_cpt.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/content.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/endpoints.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/woocommerce.php' );

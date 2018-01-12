@@ -1,0 +1,35 @@
+<?php
+// Utilize TypeRocket for building the Badge CPT
+$badges = tr_post_type( 'Badge', 'Badges' );
+$badges->setIcon('trophy');
+$badges->setArgument('hierarchical', false);
+$badges->setArgument('description', 'Create Open Badges compatible badge definitions');
+$badges->setArgument('delete_with_user', false);
+$badges->setArgument('public', false);
+$badges->setArgument('show_ui', true);
+$badges->setArgument('show_in_admin_bar', false);
+$badges->setArgument('show_in_rest', true);
+$badges->setArgument('menu_position', 85);
+$badges->setArgument('publicly_queryable', true);
+$badges->setArgument('exclude_from_search', true);
+$badges->setArgument('has_archive', true);
+$badges->setArgument('can_export', true);
+$badges->setArgument('rewrite', true);
+$badges->setArgument('supports', ['title','revisions']);
+
+tr_meta_box('Badge Details')->apply( $badges );
+
+function add_meta_content_badge_details(){
+  $form = tr_form();
+  echo $form->text('Description');
+
+}
+
+$badges->setTitlePlaceholder( 'Enter the badge name here' );
+
+$badges->setTitleForm(function(){
+  $form = tr_form();
+  echo $form->image('Badge Image');
+  $editor = $form->editor('post_content');
+  echo $editor->setLabel('Criteria');
+});
