@@ -33,11 +33,11 @@ function open_badges_endpoints(){
       $completed = $request['completed'];
 
       $assertion = [
-          'uid' => md5( $email ),
+          'uid' => hash( 'sha256', $email ),
           'recipient' => [
               'type' => 'email',
               'identity' => $email,
-              'hashed' => true
+              'hashed' => false
           ],
           'issuedOn' => strtotime( $completed ),
           'badge' => site_url( 'wp-json/b2tbadges/v1/badge-class?name=' . $slug ),
