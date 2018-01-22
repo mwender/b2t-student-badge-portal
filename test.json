@@ -1,0 +1,182 @@
+{
+    "badges":[
+           {
+                 "name":"Agile Analysis",
+                 "badge_requirement_text":"Attend 3 of 4 classes:",
+                 "demonstration_text":"Demontrate comprehension and proper application during class workshops",
+                 "non_required_classes_required":3,
+                 "non_required_class_options":4,
+                 "non_required_classes_completed":3,
+                 "completed":true,
+                 "completed_date":"2017-11-15",
+                 "criteria":[
+                        {
+                               "name":"Adopting Scaled Agile Framework (SAFe)",
+                               "required":false,
+                               "type":"class",
+                               "completed":true,
+                               "completed_date":"2017-06-30"
+                        },
+                        {      "name":"Advanced Agile User Stories",
+                               "required":false,
+                               "type":"class",
+                               "completed":true,
+                               "completed_date":"2017-09-01"
+                        },
+                        {
+                               "name":"Agile Analysis Boot Camp",
+                               "required":false,
+                               "type":"class",
+                               "completed":true,
+                               "completed_date":"2017-08-14"
+                        },
+                        {
+                               "name":"Requirements Elicitation and Review",
+                               "required":false,
+                               "type":"class",
+                               "completed":false,
+                               "completed_date":null
+                        }
+                 ]
+           },
+           {
+                 "name":"Data Analysis",
+                 "badge_requirement_text":"Attend these classes",
+                 "demonstration_text":"Demonstrate proficiency by passing the Detailing Business Data Requirements exam",
+                 "non_required_classes_required":0,
+                 "non_required_class_options":0,
+                 "non_required_classes_completed":0,
+                 "completed":false,
+                 "completed_date":null,
+                 "criteria":[
+                        {
+                               "name":"Detailing Business Data Requirements",
+                               "required":true,
+                               "type":"class",
+                               "completed":false,
+                               "completed_date":null
+                        },
+                         {
+                               "name":"Detailing Business Data Requirements Certification Exam",
+                               "required":true,
+                               "type":"exam",
+                               "completed":false,
+                               "completed_date":null
+                        },
+                        {
+                               "name":"Requirements Analysis Techniques",
+                               "required":true,
+                               "type":"class",
+                               "completed":false,
+                               "completed_date":null
+                        }
+                 ]
+           },
+           {
+                 "name":"Process Analysis",
+                 "badge_requirement_text":"Attend these classes:",
+                 "demonstration_text":"Demonstrate proficiency by passing the Business Process Analysis exam",
+                 "non_required_classes_required":0,
+                 "non_required_class_options":0,
+                 "non_required_classes_completed":0,
+                 "completed":true,
+                 "completed_date":"2017-09-01",
+                 "criteria":[
+                        {
+                               "name":"Business Process Analysis",
+                               "required":true,
+                               "type":"class",
+                               "completed":true,
+                               "completed_date":"2017-06-03"
+                        },
+                        {
+                               "name":"Business Process Analysis Certification Exam",
+                               "required":true,
+                               "type":"exam",
+                               "completed":true,
+                               "completed_date":"2017-08-30"
+                        },
+                        {
+                                "name":"Requirements Analysis Techniques",
+                                "required":true,
+                                "type":"class",
+                                "completed":true,
+                                "completed_date":"2017-07-15"
+                        }
+                 ]
+           }
+    ],
+    "certificates" :
+    [
+        {
+            "name":"Agile Analysis Practitioner",
+            "completed":false,
+            "completed_date":null,
+            "additional_badges_required":0,
+            "additional_badges_completed":0,
+            "certificates":[],
+            "badges":[
+                {
+                    "name":"Agile Analysis",
+                    "completed":true,
+                    "completed_date":"2017-11-15"
+              }
+            ],
+            "criteria":[
+                {
+                    "name":"Proficiency Exam",
+                    "type":"exam",
+                    "completed":false,
+                    "completed_date":null
+                }
+            ]
+
+        },
+        {
+            "name":"BA Associate",
+            "completed":true,
+            "completed_date":"2018-01-10",
+            "additional_badges_required":2,
+            "additional_badges_completed":2,
+            "certificates":[],
+            "badges":[],
+            "criteria":[
+                {
+                    "name":"Essential Skills for Business Analysys",
+                    "type":"class",
+                    "completed":true,
+                    "completed_date":"2017-11-13"
+                },
+                {
+                    "name":"Essential Skills for Business Analysis Certification Exam",
+                    "type":"exam",
+                    "completed":true,
+                    "completed_date":"2017-12-05"
+                }
+            ]
+        },
+        {
+            "name":"BA Certified",
+            "completed":false,
+            "completed_date":null,
+            "additional_badges_required":4,
+            "additional_badges_completed":2,
+            "certificates":[
+                {
+                    "name":"BA Associate",
+                    "completed":true,
+                    "completed_date":"2018-01-10"
+                }
+            ],
+            "badges":[],
+            "criteria":[
+                {
+                    "name":"Comprehensive Final Exam",
+                    "type":"exam",
+                    "completed":false,
+                    "completed_date":null
+                }
+            ]
+        }
+    ]
+}

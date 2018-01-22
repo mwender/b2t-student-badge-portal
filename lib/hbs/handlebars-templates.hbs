@@ -13,7 +13,49 @@
           {{/if}}
         </div>
         <div class="col-9">
-          {{{criteriaHtml}}}
+          <p>{{ badge_requirement_text }}</p>
+          {{#if classes }}
+            <table class="classes">
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Name</th>
+                  <th>Completed</th>
+                </tr>
+              </thead>
+              <tbody>
+            {{#each classes}}
+              <tr>
+                <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
+                <td>{{name}}</td>
+                <td>{{completed_date}}</td>
+              </tr>
+            {{/each}}
+              </tbody>
+            </table>
+          {{/if}}
+          {{#if exams}}
+          <p>Pass this exam:</p>
+          <table class="classes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Exam</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each exams}}
+              <tr>
+                <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
+                <td>{{name}}</td>
+                <td>{{completed_date}}</td>
+              </tr>
+            {{/each}}
+            </tbody>
+          </table>
+          {{/if}}
+          <p>{{ demonstration_text }}</p>
         </div>
       </div>
     </div>

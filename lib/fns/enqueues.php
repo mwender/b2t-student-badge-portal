@@ -10,8 +10,10 @@ function enqueue_scripts(){
         wp_enqueue_script( 'b2t-badge-portal', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badge-portal.js', ['jquery','handlebars','open-badges-issuer'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badge-portal.js' ), true );
 
         $current_user = wp_get_current_user();
+        $test_salesforce_json = 'https://b2tpart-b2t.cs77.force.com/certification/services/apexrest/Badge/';
+        $test_local_json = BADGE_PORTAL_PLUGIN_URL . 'test.json';
         wp_localize_script( 'b2t-badge-portal', 'wpvars', [
-            'jsonurl' => 'https://b2tpart-b2t.cs77.force.com/certification/services/apexrest/Badge/',
+            'jsonurl' => $test_local_json,
             'user_email' => $current_user->user_email,
             'criteriaurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/criteria?name=' ),
             'assertionurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/assertions' ),
