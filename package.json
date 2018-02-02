@@ -1,0 +1,22 @@
+{
+  "name": "b2t-student-badges",
+  "version": "1.0.0",
+  "description": "",
+  "main": "b2t-student-badge-tabs.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wenderhost/b2t-student-badges.git"
+  },
+  "author": "Michael Wender",
+  "license": "ISC",
+  "homepage": "https://github.com/wenderhost/b2t-student-badges#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-less": "^1.1.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^3.3.0"
+  }
+}

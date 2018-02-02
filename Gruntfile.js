@@ -1,53 +1,53 @@
-module.exports = function( grunt ) {
+module.exports = function(grunt){
+    require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks
+                                        //
+    grunt.initConfig({
+        less: {
+          development: {
+            options: {
+              compress: false,
+              yuicompress: false,
+              optimization: 2,
+              relativeUrls: true,
+              sourceMap: true,
+              sourceMapFilename: 'lib/css/main.css.map',
+              sourceMapBasepath: 'lib/less',
+              sourceMapURL: 'main.css.map',
+              sourceMapRootpath: '../../lib/less'
+            },
+            files: {
+              // target.css file: source.less file
+              'lib/css/main.css': 'lib/less/main.less'
+            }
+          },
+          production: {
+            options: {
+              compress: true,
+              yuicompress: true,
+              optimization: 2,
+              relativeUrls: true
+            },
+            files: {
+              'lib/css/main.css': 'lib/less/main.less'
+            }
+          }
+        },
+        watch: {
+          options: {
+            livereload: true,
+          },
+          styles: {
+            files: ['lib/less/**/*.less'], // which files to watch
+            tasks: ['less:development'],
+            options: {
+              nospawn: true
+            }
+          }
+        }
 
-	'use strict';
-	var banner = '/**\n * <%= pkg.homepage %>\n * Copyright (c) <%= grunt.template.today("yyyy") %>\n * This file is generated automatically. Do not edit.\n */\n';
-	// Project configuration
-	grunt.initConfig( {
 
-		pkg: grunt.file.readJSON( 'package.json' ),
-
-		addtextdomain: {
-			options: {
-				textdomain: 'wpplugin-update-from-github',
-			},
-			target: {
-				files: {
-					src: [ '*.php', '**/*.php', '!node_modules/**', '!php-tests/**', '!bin/**' ]
-				}
-			}
-		},
-
-		wp_readme_to_markdown: {
-			your_target: {
-				files: {
-					'README.md': 'readme.txt'
-				}
-			},
-		},
-
-		makepot: {
-			target: {
-				options: {
-					domainPath: '/languages',
-					mainFile: 'wpplugin-update-from-github.php',
-					potFilename: 'wpplugin-update-from-github.pot',
-					potHeaders: {
-						poedit: true,
-						'x-poedit-keywordslist': true
-					},
-					type: 'wp-plugin',
-					updateTimestamp: true
-				}
-			}
-		},
-	} );
-
-	grunt.loadNpmTasks( 'grunt-wp-i18n' );
-	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
-	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
-
-	grunt.util.linefeed = '\n';
-
-};
+    });
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('build', ['less:production']);
+    grunt.registerTask('builddev', ['less:development']);
+}

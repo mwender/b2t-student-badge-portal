@@ -21,7 +21,7 @@ add_action( 'woocommerce_account_classes_endpoint', __NAMESPACE__ . '\\classes_e
 function certification_endpoint_content() {
 ?>
 <h2>Certification Program</h2>
-<p>Use this page to track your progress towards earning badges: Agile Analyst Practioner, BA Associate, and BA Certified.</p>
+<p>Use this page to track your progress towards earning badges and certifications:</p>
 <div id="badge-display"></div>
 <?php
 }
