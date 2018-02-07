@@ -37,7 +37,7 @@ module.exports = function(grunt){
             livereload: true,
           },
           styles: {
-            files: ['lib/less/**/*.less'], // which files to watch
+            files: ['lib/less/**/*.less','lib/js/**/*.js','lib/hbs/**/*.hbs'], // which files to watch
             tasks: ['less:development'],
             options: {
               nospawn: true
