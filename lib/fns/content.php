@@ -22,7 +22,22 @@ function certification_endpoint_content() {
 ?>
 <h2>Certification Program</h2>
 <p>Use this page to track your progress towards earning badges and certifications:</p>
-<div id="badge-display"></div>
+<div id="tabs">
+    <ul>
+        <li><a href="#badges">Badges</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+    </ul>
+    <div id="badges">
+        <div id="badge-display">
+            <div class="alert alert-info">One moment. Loading...</div>
+        </div>
+    </div>
+    <div id="certifications">
+        <div id="certificate-display">
+        </div>
+    </div>
+</div>
+
 <?php
 }
 add_action( 'woocommerce_account_certification_endpoint', __NAMESPACE__ . '\\certification_endpoint_content' );

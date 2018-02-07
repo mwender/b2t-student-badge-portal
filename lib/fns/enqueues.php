@@ -4,6 +4,8 @@ namespace B2TBadges\fns\enqueues;
 
 function enqueue_scripts(){
     if( \b2t_is_endpoint( 'certification' ) || \b2t_is_endpoint( 'classes' )  ){
+        wp_dequeue_script( 'divi-custom-script' );
+
         wp_register_script( 'open-badges-issuer', 'https://backpack.openbadges.org/issuer.js', null, null, true );
         wp_register_script( 'handlebars', BADGE_PORTAL_PLUGIN_URL . 'lib/js/handlebars-v4.0.5.js', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/handlebars-v4.0.5.js' ), true );
 
@@ -27,4 +29,4 @@ function enqueue_scripts(){
         });
     }
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts', 20 );

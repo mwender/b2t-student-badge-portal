@@ -1,17 +1,47 @@
-#tabs-nohdr {
-    padding: 0px;
-    background: none;
-    border-width: 0px;
-}
-#tabs-nohdr .ui-tabs-nav {
-    padding-left: 0px;
-    background: transparent;
-    border-width: 0px 0px 1px 0px;
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-}
-#tabs-nohdr .ui-tabs-panel {
-    background: #f5f3e5 url(http://code.jquery.com/ui/1.8.23/themes/south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) repeat-x scroll 50% top;
-    border-width: 0px 1px 1px 1px;
+.entry-content #tabs{
+    ul.ui-tabs-nav{
+        border-bottom: 1px solid #ccc;
+        padding: 0;
+        display: flex;
+        margin-bottom: 40px;
+
+        list-style: none;
+
+        li{
+            list-style: none;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-width: 1px 1px 0 1px;
+            border-radius: 3px 3px 0 0;
+
+            &:first-child{
+                margin-left: 0;
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+
+            a{
+                display: block;
+                padding: 5px 20px;
+
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+
+            &.ui-tabs-active.ui-state-default{
+                a{
+                    color: #fff;
+                    background-color: @b2torange;
+                }
+            }
+            &.ui-state-hover{
+                a:hover{
+                    background-color: lighten(@b2torange,15%);
+                    color: #fff;
+                }
+            }
+        }
+    }
 }
