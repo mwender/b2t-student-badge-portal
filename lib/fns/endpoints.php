@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * Open Badges Docs: https://github.com/mozilla/openbadges-backpack/wiki/Using-the-Issuer-API
+ */
 namespace B2TBadges\fns\endpoint;
 
 /**
@@ -10,10 +12,6 @@ function badge_portal_endpoints(){
     add_rewrite_endpoint( 'certification', EP_PAGES );
 }
 add_action( 'init', __NAMESPACE__ . '\\badge_portal_endpoints' );
-
-/*
- * Documentation: https://github.com/mozilla/openbadges-backpack/wiki/Using-the-Issuer-API
- */
 
 /**
  * Open Badges endpoint definitions

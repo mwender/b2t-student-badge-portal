@@ -15,6 +15,9 @@ define( 'BADGE_PORTAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BADGE_PORTAL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BADGE_API_NAMESPACE', 'b2tbadges/v1' );
 
+// We store SalesForce session credentials in $_SESSION['SF_SESSION']
+session_start();
+
 // Load libraries
 require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
 
@@ -52,4 +55,12 @@ require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/badge_cpt.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/content.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/endpoints.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/salesforce.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/woocommerce.php' );
+
+// Login to SalesForce
+if(
+    ! isset( $_SESSION['SF_SESSION'] ) &&
+    ( b2t_is_endpoint( 'certification' ) || b2t_is_endpoint( 'classes' ) )
+)
+    \B2TBadges\fns\salesforce\login();

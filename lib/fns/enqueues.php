@@ -12,13 +12,29 @@ function enqueue_scripts(){
         wp_enqueue_script( 'b2t-badge-portal', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badge-portal.js', ['jquery','handlebars','open-badges-issuer','jquery-ui-tabs'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badge-portal.js' ), true );
 
         $current_user = wp_get_current_user();
-        $test_salesforce_json = 'https://b2tpart-b2t.cs77.force.com/certification/services/apexrest/Badge/';
-        $test_local_json = BADGE_PORTAL_PLUGIN_URL . 'test.json';
+        $student_id = get_user_meta( $current_user->ID, 'sf_student_id', true );
+
+        if( empty( $student_id ) ){
+            $student = \B2TBadges\fns\salesforce\get_student_id([
+                'access_token'  => $_SESSION['SF_SESSION']->access_token,
+                'instance_url'  => $_SESSION['SF_SESSION']->instance_url,
+                'email'         => $current_user->user_email,
+            ]);
+
+            if( ! is_wp_error( $student ) ){
+                add_user_meta( $current_user->ID, 'sf_student_id', $student->student_id, true );
+                $student_id = $student->student_id;
+            } else {
+                $student_id = '';
+            }
+        }
+
         wp_localize_script( 'b2t-badge-portal', 'wpvars', [
-            'jsonurl' => $test_local_json,
-            'user_email' => $current_user->user_email,
+            'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/sf/' ),
+            'student_id' => $student_id,
             'criteriaurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/criteria?name=' ),
             'assertionurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/assertions' ),
+            'nonce' => wp_create_nonce( 'wp_rest' )
         ]);
 
         wp_enqueue_style( 'b2t-badge-portal', BADGE_PORTAL_PLUGIN_URL . 'lib/css/main.css', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/css/main.css' ) );
