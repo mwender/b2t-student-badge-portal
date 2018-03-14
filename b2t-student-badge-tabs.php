@@ -7,7 +7,7 @@
  * Author URI:      https://mwender.com
  * Text Domain:     b2t-student-badge-tabs
  * Domain Path:     /languages
- * Version:         0.0.9
+ * Version:         0.1.0
  *
  * @package         B2t_Student_Badge_Tabs
  */
@@ -57,10 +57,3 @@ require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/endpoints.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/salesforce.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/woocommerce.php' );
-
-// Login to SalesForce
-if(
-    ! isset( $_SESSION['SF_SESSION'] ) &&
-    ( b2t_is_endpoint( 'certification' ) || b2t_is_endpoint( 'classes' ) )
-)
-    \B2TBadges\fns\salesforce\login();

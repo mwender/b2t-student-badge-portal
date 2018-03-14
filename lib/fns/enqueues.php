@@ -15,6 +15,9 @@ function enqueue_scripts(){
         $student_id = get_user_meta( $current_user->ID, 'sf_student_id', true );
 
         if( empty( $student_id ) ){
+            if( ! isset( $_SESSION['SF_SESSION'] ) )
+                \B2TBadges\fns\salesforce\login();
+
             $student = \B2TBadges\fns\salesforce\get_student_id([
                 'access_token'  => $_SESSION['SF_SESSION']->access_token,
                 'instance_url'  => $_SESSION['SF_SESSION']->instance_url,
