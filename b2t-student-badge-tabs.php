@@ -7,7 +7,7 @@
  * Author URI:      https://mwender.com
  * Text Domain:     b2t-student-badge-tabs
  * Domain Path:     /languages
- * Version:         1.0.2
+ * Version:         0.0.9
  *
  * @package         B2t_Student_Badge_Tabs
  */
@@ -30,7 +30,7 @@ if( is_admin() ){
         // GitHub profile's `Developer Settings`. Then add
         // `define( 'GITHUB_ACCESS_TOKEN', your_access_token );` to
         // your site's `wp-config.php`.
-        new GitHub_Plugin_Updater( __FILE__, 'mwender', 'wpplugin-update-from-github', GITHUB_ACCESS_TOKEN );
+        new GitHub_Plugin_Updater( __FILE__, 'mwender', 'b2t-student-badge-portal', GITHUB_ACCESS_TOKEN );
     } );
 }
 
