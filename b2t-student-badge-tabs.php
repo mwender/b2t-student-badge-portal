@@ -22,8 +22,8 @@ session_start();
 require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
 
 // Initialize Plugin Updates
-require_once ( plugin_dir_path( __FILE__ ) . 'lib/classes/plugin-updater.php' );
 if( is_admin() ){
+    require_once ( plugin_dir_path( __FILE__ ) . 'lib/classes/plugin-updater.php' );
     add_action( 'init', function(){
         // If you're experiencing GitHub API rate limits while testing
         // plugin updates, create a `Personal access token` under your
