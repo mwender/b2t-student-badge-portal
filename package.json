@@ -8,11 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/wenderhost/b2t-student-badges.git"
+    "url": "git@github.com:mwender/b2t-student-badge-portal.git"
   },
   "author": "Michael Wender",
   "license": "ISC",
-  "homepage": "https://github.com/wenderhost/b2t-student-badges#readme",
+  "homepage": "https://github.com/mwender/b2t-student-badge-portal",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-less": "^1.1.0",
