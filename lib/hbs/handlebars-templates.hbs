@@ -1,6 +1,7 @@
 <!-- Handlebars -->
 <script id="badge-template" type="text/x-handlebars-template">
     <div class="badge-container" id="{{slug}}-badge">
+      <h2>{{name}}{{#if badge_requirement_text}} Badge{{/if}}</h2>
       <div class="row">
         <div class="col-3 aligncenter">
           <img src="{{image}}" class="{{#if completed}}completed{{/if}}" alt="{{name}}" />
@@ -9,7 +10,8 @@
           {{/if}}
         </div>
         <div class="col-9">
-          <p>{{ badge_requirement_text }}</p>
+          <h4>Achievement Criteria:</h4>
+          <h5>{{ badge_requirement_text }}</h5>
           {{#if classes }}
             <table class="classes">
               <thead>
@@ -30,8 +32,8 @@
               </tbody>
             </table>
           {{/if}}
+          {{#if type}}<h5>Demonstrate Comprehension</h5>{{/if}}
           {{#if exams}}
-          <p>Pass this exam:</p>
           <table class="classes">
             <thead>
               <tr>
@@ -51,7 +53,16 @@
             </tbody>
           </table>
           {{/if}}
-          <p>{{ demonstration_text }}</p>
+          {{#if demonstration_text}}
+          <table class="classes">
+            <tbody>
+              <tr>
+                <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
+                <td>{{demonstration_text}}</td>
+              </tr>
+            </tbody>
+          </table>
+          {{/if}}
         </div>
       </div>
     </div>
