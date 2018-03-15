@@ -37,6 +37,7 @@ function enqueue_scripts(){
             'student_id' => $student_id,
             'criteriaurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/criteria?name=' ),
             'assertionurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/assertions' ),
+            'default_badge' => BADGE_PORTAL_PLUGIN_URL . '/lib/img/b2t-default-badge.png',
             'nonce' => wp_create_nonce( 'wp_rest' )
         ]);
 
