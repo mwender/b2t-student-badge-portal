@@ -1,16 +1,20 @@
+#badge-display{
+    display: none;
+}
+
 .entry-content #tabs{
     ul.ui-tabs-nav{
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid @interfacegrey;
         padding: 0;
         display: flex;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
 
         list-style: none;
 
         li{
             list-style: none;
             margin: 0 5px;
-            border: 1px solid #ccc;
+            border: 1px solid @interfacegrey;
             border-width: 1px 1px 0 1px;
             border-radius: 3px 3px 0 0;
 
@@ -38,7 +42,7 @@
             }
             &.ui-state-hover{
                 a:hover{
-                    background-color: lighten(@b2torange,15%);
+                    background-color: @b2tblue;
                     color: #fff;
                 }
             }

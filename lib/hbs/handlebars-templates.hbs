@@ -1,7 +1,6 @@
 <!-- Handlebars -->
 <script id="badge-template" type="text/x-handlebars-template">
     <div class="badge-container" id="{{slug}}-badge">
-      <h2>{{name}}{{#if badge_requirement_text}} Badge{{/if}}</h2>
       <div class="row">
         <div class="col-3 aligncenter">
           <img src="{{image}}" class="{{#if completed}}completed{{/if}}" alt="{{name}}" />
@@ -10,6 +9,7 @@
           {{/if}}
         </div>
         <div class="col-9">
+          <h2>{{name}}{{#if badge_requirement_text}} Badge{{/if}}</h2>
           <h4>Achievement Criteria:</h4>
           <h5>{{ badge_requirement_text }}</h5>
           {{#if classes }}

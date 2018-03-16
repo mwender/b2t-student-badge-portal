@@ -1,0 +1,38 @@
+/* My Account Layout */
+#left-area article nav.woocommerce-MyAccount-navigation{
+  width: 20%;
+
+  ul{
+    list-style-type: none;
+    padding-left: 0;
+
+    li{
+      margin-bottom: 3px;
+
+      a{
+        display: block;
+        background-color: #eee;
+        padding: .25rem .75rem;
+        border: 1px solid #eee;
+        border-radius: 3px;
+      }
+
+      &.is-active{
+        a{
+          background-color: #fff;
+        }
+      }
+      &:hover{
+        a{
+          background-color: lighten(#eee,3%);
+          text-decoration: none;
+        }
+      }
+    }
+
+  }
+}
+
+.woocommerce-account .woocommerce-MyAccount-content{
+  width: 78%;
+}
