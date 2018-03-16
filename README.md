@@ -3,13 +3,17 @@
 **Tags:** wordpress,woocommerce,salesforce  
 **Requires at least:** 4.7.0  
 **Tested up to:** 4.9.4  
-**Stable tag:** 0.1.2 
+**Stable tag:** 0.1.3 
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
 ## Changelog ##
+
+### 0.1.3 ###
+* Ensuring SalesForce session is present before querying data from the API.
+* Overall layout improvements.
 
 ### 0.1.2 ###
 * Badge/Certificates tab layout updates.
