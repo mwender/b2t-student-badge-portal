@@ -28,8 +28,8 @@ function certification_endpoint_content() {
         <li><a href="#certifications">Certifications</a></li>
     </ul>
     <div id="badges">
+        <div class="alert alert-info">One moment. Loading...</div>
         <div id="badge-display">
-            <div class="alert alert-info">One moment. Loading...</div>
         </div>
     </div>
     <div id="certifications">
