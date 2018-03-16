@@ -47,7 +47,7 @@ function salesforce_endpoint(){
           $transient_id = 'student-data_' . $student_id;
           if( false === ( $response = get_transient( $transient_id ) ) ){
             if( ! isset( $_SESSION['SF_SESSION'] ) )
-              return new \WP_Error( 'nosfsession', __('No SalesForce Session present.') );
+              login();
 
             $response = get_student_data([
               'access_token' => $_SESSION['SF_SESSION']->access_token,
