@@ -7,7 +7,7 @@
  * Author URI:      https://mwender.com
  * Text Domain:     b2t-student-badge-tabs
  * Domain Path:     /languages
- * Version:         0.1.3
+ * Version:         0.1.4
  *
  * @package         B2t_Student_Badge_Tabs
  */
