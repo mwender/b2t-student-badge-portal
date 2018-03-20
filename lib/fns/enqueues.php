@@ -35,6 +35,7 @@ function enqueue_scripts(){
         wp_localize_script( 'b2t-badge-portal', 'wpvars', [
             'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/sf/' ),
             'student_id' => $student_id,
+            'student_email' => $current_user->user_email,
             'criteriaurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/criteria?name=' ),
             'assertionurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/assertions' ),
             'default_badge' => BADGE_PORTAL_PLUGIN_URL . '/lib/img/b2t-default-badge.png',
