@@ -22,6 +22,7 @@ session_start();
 require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
 
 // Initialize Plugin Updates
+/*
 if( is_admin() ){
     require_once ( plugin_dir_path( __FILE__ ) . 'lib/classes/plugin-updater.php' );
     add_action( 'init', function(){
@@ -33,6 +34,7 @@ if( is_admin() ){
         new GitHub_Plugin_Updater( __FILE__, 'mwender', 'b2t-student-badge-portal', GITHUB_ACCESS_TOKEN );
     } );
 }
+*/
 
 /**
  * Check whether the currently viewed page is an endpoint
