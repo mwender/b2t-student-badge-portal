@@ -5,7 +5,7 @@ namespace B2TBadges\fns\salesforce;
  * Sets up our SalesForce REST API Endpoint
  */
 function salesforce_endpoint(){
-  register_rest_route( BADGE_API_NAMESPACE, '/sf/(?P<action>login|getStudentId|getStudentData)', [
+  register_rest_route( BADGE_API_NAMESPACE, '/sf/(?P<action>login|getStudentId|getStudentData|getStudentClasses)', [
     'methods' => 'GET',
     'callback' => function( \WP_REST_Request $request ){
       if( is_wp_error( $request ) )
@@ -39,12 +39,12 @@ function salesforce_endpoint(){
           $student_info;
           break;
 
-        case 'getStudentData':
+        case 'getStudentClasses':
           if( empty( $student_id ) )
             return new \WP_Error( 'nocontactid', __('No Contact/Student ID provided.') );
-
           // Cache Student Data for 24hrs
-          $transient_id = 'student-data_' . $student_id;
+          $transient_id = 'student-classes_' . $student_id;
+
           if( false === ( $response = get_transient( $transient_id ) ) ){
             if( ! isset( $_SESSION['SF_SESSION'] ) )
               login();
@@ -53,6 +53,27 @@ function salesforce_endpoint(){
               'access_token' => $_SESSION['SF_SESSION']->access_token,
               'instance_url' => $_SESSION['SF_SESSION']->instance_url,
               'contact_id' => $student_id,
+              'data_type' => 'classes',
+            ]);
+            set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
+          }
+          break;
+
+        case 'getStudentData':
+          if( empty( $student_id ) )
+            return new \WP_Error( 'nocontactid', __('No Contact/Student ID provided.') );
+
+          // Cache Student Data for 24hrs
+          $transient_id = 'student-badges_' . $student_id;
+          if( false === ( $response = get_transient( $transient_id ) ) ){
+            if( ! isset( $_SESSION['SF_SESSION'] ) )
+              login();
+
+            $response = get_student_data([
+              'access_token' => $_SESSION['SF_SESSION']->access_token,
+              'instance_url' => $_SESSION['SF_SESSION']->instance_url,
+              'contact_id' => $student_id,
+              'data_type' => 'badges',
             ]);
             set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
           }
@@ -64,7 +85,8 @@ function salesforce_endpoint(){
       }
 
       return $response;
-    },
+    }
+    /*,
     'permission_callback' => function(){
       if( ! current_user_can( 'read' ) ){
         return new \WP_Error( 'rest_forbidden', __('Permission denied'), ['status' => 401] );
@@ -129,6 +151,7 @@ function login(){
  *  @type   string  $access_token   SalesForce access token
  *  @type   string  $instance_url   SalesForce instance URL
  *  @type   string  $contact_id     SalesForce Contact ID
+ *  @type   string  $data_type      Selects the
  * }
  *
  * @return     object      Student Data or WP Error.
@@ -144,7 +167,19 @@ function get_student_data( $args = [] ){
     return new \WP_Error( 'nocontactid', __('No Contact ID provided.') );
   }
 
-  $response = wp_remote_get( $args['instance_url'] . '/services/apexrest/Badge/' . $args['contact_id'], [
+  switch ( $args['data_type'] ) {
+    case 'classes':
+      $query = 'select contact__c, contact__r.name, Class__c, Class__r.Name, Start_Date__c, Class__r.End_Date__C from Non_LMS_Course_Enrollment__c
+where Contact__c = \'' . $args['contact_id'] . '\'';
+      $request_url = $args['instance_url'] . '/services/data/v42.0/query/?q=' . urlencode( $query );
+      break;
+
+    default:
+      $request_url = $args['instance_url'] . '/services/apexrest/Badge/' . $args['contact_id'];
+      break;
+  }
+
+  $response = wp_remote_get( $request_url, [
     'method' => 'GET',
     'timeout' => 30,
     'redirection' => 5,
@@ -158,6 +193,8 @@ function get_student_data( $args = [] ){
     $response = new \stdClass();
     $response->data = $data;
   }
+
+  $response->instance_url = $args['instance_url'];
 
   return $response;
 }

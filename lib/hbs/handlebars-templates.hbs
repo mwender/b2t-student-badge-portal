@@ -67,3 +67,23 @@
       </div>
     </div>
 </script>
+<script id="classes-template" type="text/x-handlebars-template">
+  <table class="classes">
+    <thead>
+      <tr>
+        <th style="width: 75%;">Class</th>
+        <th style="width: 25%;">Date Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#if classes}}
+      {{#each classes}}
+      <tr>
+        <td>{{Class__r.Name}}</td>
+        <td>{{formatDate Class__r.End_Date__c day="numeric" month="long" year="numeric"}}</td>
+      </tr>
+      {{/each}}
+    {{/if}}
+    </tbody>
+  </table>
+</script>

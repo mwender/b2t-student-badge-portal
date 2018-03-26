@@ -11,6 +11,9 @@ function classes_endpoint_content() {
 ?>
 <h2>Classes</h2>
 <p>Please see below for a historical listing of classes and exams that you have completed with B2T Training.</p>
+<div id="classes">
+    <div class="alert alert-info">One moment. Loading...</div>
+</div>
 <?php
 }
 add_action( 'woocommerce_account_classes_endpoint', __NAMESPACE__ . '\\classes_endpoint_content' );

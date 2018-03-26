@@ -16,7 +16,7 @@ add_action( 'init', __NAMESPACE__ . '\\badge_portal_endpoints' );
 /**
  * Open Badges endpoint definitions
  */
-function open_badges_endpoints(){
+function student_portal_endpoints(){
 
   /**
    * Returns Open Badges assertion
@@ -78,6 +78,9 @@ function open_badges_endpoints(){
     ]
   ]);
 
+  /**
+   * Returns an Open Badges class definition
+   */
   register_rest_route( BADGE_API_NAMESPACE, '/badge-class', [
     'methods' => 'GET',
     'callback' => function( \WP_REST_Request $request ){
@@ -110,6 +113,9 @@ function open_badges_endpoints(){
     ]
   ]);
 
+  /**
+   * Returns the Badge criteria
+   */
   register_rest_route( BADGE_API_NAMESPACE, '/criteria', [
     'methods' => 'GET',
     'callback' => function( \WP_REST_Request $request ){
@@ -141,6 +147,9 @@ function open_badges_endpoints(){
     ]
   ]);
 
+  /**
+   * Returns an Open Badges Issuer definition
+   */
   register_rest_route( BADGE_API_NAMESPACE, '/issuer', [
     'methods' => 'GET',
     'callback' => function(){
@@ -155,4 +164,4 @@ function open_badges_endpoints(){
     }
   ]);
 }
-add_action( 'rest_api_init', __NAMESPACE__ . '\\open_badges_endpoints' );
+add_action( 'rest_api_init', __NAMESPACE__ . '\\student_portal_endpoints' );
