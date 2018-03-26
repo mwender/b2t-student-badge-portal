@@ -11,6 +11,10 @@ A WordPress plugin which provides a listing of B2T Student Badges/Certificates i
 
 ## Changelog ##
 
+### 1.0.0 ###
+* Student Classes tab.
+* Initial production release.
+
 ### 0.1.4 ###
 * Making sure `No Student Data Found` message shows.
 * Updating My Account subnav order.
