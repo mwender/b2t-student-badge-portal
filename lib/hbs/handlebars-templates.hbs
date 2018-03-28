@@ -11,8 +11,7 @@
         </div>
         <div class="col-9">
           <h2 style="font-weight: 600;">{{name}}{{#if badge_requirement_text}} Badge{{/if}}{{#if completed_date}}<div style="font-weight: normal; font-size: 16px; line-height: 18px;"><strong>Completed:</strong> {{formatDate completed_date day="numeric" month="short" year="numeric"}}</div>{{/if}}</h2>
-          <h4>Achievement Criteria:</h4>
-          <h5>{{ badge_requirement_text }}</h5>
+          <h5>{{#nl2br}}{{badge_requirement_text}}{{/nl2br}}</h5>
           {{#if classes }}
             <table class="classes">
               <thead>
