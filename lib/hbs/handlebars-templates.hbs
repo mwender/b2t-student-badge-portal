@@ -5,11 +5,12 @@
         <div class="col-3 aligncenter">
           <img src="{{image}}" class="{{#if completed}}completed{{/if}}" alt="{{name}}" />
           {{#if completed}}
+          <h5 style="font-weight: bold; padding-bottom: 0">Open Badges</h5>
           <button class="add-to-backpack" data-badge="{{slug}}" data-completed="{{completed_date}}">Add to Backpack</button>
           {{/if}}
         </div>
         <div class="col-9">
-          <h2>{{name}}{{#if badge_requirement_text}} Badge{{/if}}</h2>
+          <h2 style="font-weight: 600;">{{name}}{{#if badge_requirement_text}} Badge{{/if}}{{#if completed_date}}<div style="font-weight: normal; font-size: 16px; line-height: 18px;"><strong>Completed:</strong> {{formatDate completed_date day="numeric" month="short" year="numeric"}}</div>{{/if}}</h2>
           <h4>Achievement Criteria:</h4>
           <h5>{{ badge_requirement_text }}</h5>
           {{#if classes }}
@@ -26,13 +27,13 @@
               <tr>
                 <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
                 <td>{{name}}</td>
-                <td>{{completed_date}}</td>
+                <td>{{#if completed}}{{formatDate completed_date day="numeric" month="short" year="numeric"}}{{/if}}</td>
               </tr>
             {{/each}}
               </tbody>
             </table>
           {{/if}}
-          <h5>Demonstrate Comprehension</h5>
+          <h5>Demonstrate Comprehension:</h5>
           {{#if exams}}
           <table class="classes">
             <thead>
@@ -47,7 +48,7 @@
               <tr>
                 <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
                 <td>{{name}}</td>
-                <td>{{completed_date}}</td>
+                <td>{{#if completed}}{{formatDate completed_date day="numeric" month="short" year="numeric"}}{{/if}}</td>
               </tr>
             {{/each}}
             </tbody>
