@@ -119,8 +119,8 @@
     {{#if classes}}
       {{#each classes}}
       <tr>
-        <td>{{Class__r.Name}}</td>
-        <td>{{formatDate Class__r.End_Date__c day="numeric" month="long" year="numeric"}}</td>
+        <td>{{name}}</td>
+        <td>{{formatDate date day="numeric" month="long" year="numeric"}}</td>
       </tr>
       {{/each}}
     {{/if}}
