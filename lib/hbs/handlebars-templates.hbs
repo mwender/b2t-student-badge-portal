@@ -67,6 +67,46 @@
       </div>
     </div>
 </script>
+<script id="certificate-template" type="text/x-handlebars-template">
+    <div class="certificate-container" id="{{slug}}-certificate">
+      <div class="row">
+        <div class="col-3 aligncenter">
+          <img src="{{image}}" class="{{#if completed}}completed{{/if}}" alt="{{name}}" />
+          {{#if completed}}
+          <h5 style="font-weight: bold; padding-bottom: 0">Open Badges</h5>
+          <button class="add-to-backpack" data-badge="{{slug}}" data-completed="{{completed_date}}">Add to Backpack</button>
+          {{/if}}
+        </div>
+        <div class="col-9">
+          <h2 style="font-weight: 600;">{{name}}{{#if completed_date}}<div style="font-weight: normal; font-size: 16px; line-height: 18px;"><strong>Completed:</strong> {{formatDate completed_date day="numeric" month="short" year="numeric"}}</div>{{/if}}</h2>
+          <h5>{{#nl2br}}{{badge_requirement_text}}{{/nl2br}}</h5>
+          {{#if criteria }}
+            <table class="classes">
+              <tbody>
+            {{#each criteria}}
+              <tr>
+                <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
+                <td>{{name}}</td>
+                <td>{{#if completed_date}}{{formatDate completed_date day="numeric" month="short" year="numeric"}}{{/if}}</td>
+              </tr>
+            {{/each}}
+              </tbody>
+            </table>
+          {{/if}}
+          {{#if demonstration_text}}
+          <table class="classes">
+            <tbody>
+              <tr>
+                <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
+                <td>{{demonstration_text}}</td>
+              </tr>
+            </tbody>
+          </table>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+</script>
 <script id="classes-template" type="text/x-handlebars-template">
   <table class="classes">
     <thead>

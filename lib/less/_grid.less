@@ -1,20 +1,26 @@
-.badge-container img{
-  -webkit-filter: grayscale(1);
-  filter: grayscale(1);
-}
-.badge-container img.completed{
-  filter: none;
-}
-.badge-container button{
-  background: aliceblue;
-  font-size: 12px;
-  border-radius: 2px;
-  color: #666;
-  cursor: pointer;
-}
-.badge-container button:hover{
-  background: #666;
-  color: aliceblue;
+.badge-container,
+.certificate-container{
+  button{
+    background: aliceblue;
+    font-size: 12px;
+    border-radius: 2px;
+    color: #666;
+    cursor: pointer;
+
+    &:hover{
+      background: #666;
+      color: aliceblue;
+    }
+  }
+
+  img{
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+
+    &.completed{
+      filter: none;
+    }
+  }
 }
 table.classes .checkmark{
   width: 20px;
