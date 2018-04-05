@@ -65,3 +65,29 @@ function enqueue_scripts(){
     wp_enqueue_style( 'b2t-badge-portal', BADGE_PORTAL_PLUGIN_URL . 'lib/css/main.css', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/css/main.css' ) );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts', 20 );
+
+function enqueue_badge_scripts(){
+    global $wp_query, $wp_styles, $wp_scripts, $post;
+
+    // Don't do anything if we're not on a badge page
+    if( is_admin() || 'badge' != $wp_query->query_vars['post_type'] )
+        return;
+
+    remove_action( 'wp_footer', 'b2t_divi_smooth_scroll_anchors' );
+
+    foreach( $wp_styles->registered as $handle => $data ){
+        if( ! stristr( $handle, 'admin' ) ){
+            wp_deregister_style( $handle );
+            wp_dequeue_style( $handle );
+        }
+    }
+
+    foreach( $wp_scripts->registered as $handle => $data ){
+        if( ! stristr( $handle, 'admin' ) ){
+            wp_deregister_script( $handle );
+            wp_dequeue_script( $handle );
+        }
+    }
+    wp_enqueue_style( 'b2t-badge-portal', BADGE_PORTAL_PLUGIN_URL . 'lib/css/main.css', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/css/main.css' ) );
+}
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_badge_scripts', 9999999 );

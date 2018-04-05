@@ -57,5 +57,6 @@ require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/badge_cpt.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/content.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/endpoints.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/inlinestyles.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/salesforce.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/woocommerce.php' );

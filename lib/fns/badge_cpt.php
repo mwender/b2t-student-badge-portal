@@ -33,3 +33,30 @@ $badges->setTitleForm(function(){
   $editor = $form->editor('post_content');
   echo $editor->setLabel('Criteria');
 });
+
+/**
+ * Loads the template when viewing a Badge CPT.
+ */
+function load_badge_template( $template ){
+  global $wp_query;
+
+  if( 'badge' != $wp_query->query_vars['post_type'] )
+    return $template;
+
+  $badge_template = dirname( __FILE__ ) . '/../../templates/badge.php';
+  if( file_exists( $badge_template ) )
+    return $badge_template;
+
+  return $template;
+}
+add_action( 'template_include', 'load_badge_template' );
+
+function remove_adminbar_on_badge_template($bool){
+    global $wp_query;
+
+    if( ! is_admin() && 'badge' == $wp_query->query_vars['post_type'] )
+        return false;
+
+    return $bool;
+}
+add_filter( 'show_admin_bar', 'remove_adminbar_on_badge_template' );
