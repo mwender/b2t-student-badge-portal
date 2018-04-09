@@ -118,7 +118,7 @@
     <tbody>
     {{#if classes}}
       {{#each classes}}
-      <tr>
+      <tr id="{{name}}">
         <td>{{name}}</td>
         <td>{{formatDate date day="numeric" month="long" year="numeric"}}</td>
       </tr>
@@ -126,4 +126,14 @@
     {{/if}}
     </tbody>
   </table>
+</script>
+<script id="exam-row-template" type="text/x-handlebars-template">
+    {{#if exams}}
+      {{#each exams}}
+      <tr id="{{name}}">
+        <td>{{name}}</td>
+        <td>{{formatDate date day="numeric" month="long" year="numeric"}}</td>
+      </tr>
+      {{/each}}
+    {{/if}}
 </script>
