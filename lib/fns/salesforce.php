@@ -5,7 +5,7 @@ namespace B2TBadges\fns\salesforce;
  * Sets up our SalesForce REST API Endpoint
  */
 function salesforce_endpoint(){
-  register_rest_route( BADGE_API_NAMESPACE, '/sf/(?P<action>login|getStudentId|getStudentData|getStudentClasses)', [
+  register_rest_route( BADGE_API_NAMESPACE, '/sf/(?P<action>login|getStudentId|getStudentData|getStudentClasses|getStudentExams)', [
     'methods' => 'GET',
     'callback' => function( \WP_REST_Request $request ){
       if( is_wp_error( $request ) )
@@ -54,6 +54,26 @@ function salesforce_endpoint(){
               'instance_url' => $_SESSION['SF_SESSION']->instance_url,
               'contact_id' => $student_id,
               'data_type' => 'classes',
+            ]);
+            set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
+          }
+          break;
+
+        case 'getStudentExams':
+          if( empty( $student_id ) )
+            return new \WP_Error( 'nocontactid', __('No Contact/Student ID provided.') );
+          // Cache Student Data for 24hrs
+          $transient_id = 'student-exams_' . $student_id;
+
+          if( false === ( $response = get_transient( $transient_id ) ) ){
+            if( ! isset( $_SESSION['SF_SESSION'] ) )
+              login();
+
+            $response = get_student_data([
+              'access_token' => $_SESSION['SF_SESSION']->access_token,
+              'instance_url' => $_SESSION['SF_SESSION']->instance_url,
+              'contact_id' => $student_id,
+              'data_type' => 'exams',
             ]);
             set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
           }
@@ -170,6 +190,11 @@ function get_student_data( $args = [] ){
     case 'classes':
       $query = 'select contact__c, contact__r.name, Class__c, Class__r.Name, Start_Date__c, Class__r.End_Date__C from Non_LMS_Course_Enrollment__c
 where Contact__c = \'' . $args['contact_id'] . '\'';
+      $request_url = $args['instance_url'] . '/services/data/v42.0/query/?q=' . urlencode( $query );
+      break;
+
+    case 'exams':
+      $query = 'Select Contact__c, Contact__r.Name, Course__r.Name, Exam_Date__c, Passed_Date__c from B2T_Certification__c WHERE Contact__c = \'' . $args['contact_id'] . '\'';
       $request_url = $args['instance_url'] . '/services/data/v42.0/query/?q=' . urlencode( $query );
       break;
 
