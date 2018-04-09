@@ -105,7 +105,7 @@ function salesforce_endpoint(){
       }
 
       return $response;
-    }/*,
+    },
     'permission_callback' => function(){
       if( ! current_user_can( 'read' ) ){
         return new \WP_Error( 'rest_forbidden', __('Permission denied'), ['status' => 401] );
