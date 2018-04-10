@@ -37,7 +37,7 @@ function student_portal_endpoints(){
               'identity' => $email,
               'hashed' => false
           ],
-          'issuedOn' => strtotime( $completed ),
+          'issuedOn' => date('Y-m-d', strtotime( $completed ) ),
           'badge' => site_url( 'wp-json/b2tbadges/v1/badge-class?name=' . $slug ),
           'verify' => [
               'type' => 'hosted',
