@@ -14,19 +14,11 @@
           <h5>{{#nl2br}}{{badge_requirement_text}}{{/nl2br}}</h5>
           {{#if classes }}
             <table class="classes">
-              <thead>
-                <tr>
-                  <th>&nbsp;</th>
-                  <th>Class</th>
-                  <th>Completed</th>
-                </tr>
-              </thead>
               <tbody>
             {{#each classes}}
               <tr>
                 <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
                 <td>{{name}}</td>
-                <td>{{#if completed}}{{formatDate completed_date day="numeric" month="short" year="numeric"}}{{/if}}</td>
               </tr>
             {{/each}}
               </tbody>
@@ -35,19 +27,11 @@
           <h5>Demonstrate Comprehension:</h5>
           {{#if exams}}
           <table class="classes">
-            <thead>
-              <tr>
-                <th>&nbsp;</th>
-                <th>Exam</th>
-                <th>Completed</th>
-              </tr>
-            </thead>
             <tbody>
             {{#each exams}}
               <tr>
                 <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
                 <td>{{name}}</td>
-                <td>{{#if completed}}{{formatDate completed_date day="numeric" month="short" year="numeric"}}{{/if}}</td>
               </tr>
             {{/each}}
             </tbody>
@@ -87,7 +71,6 @@
               <tr>
                 <td><div class="{{#if completed}}completed{{/if}} checkmark"></div></td>
                 <td>{{name}}</td>
-                <td>{{#if completed_date}}{{formatDate completed_date day="numeric" month="short" year="numeric"}}{{/if}}</td>
               </tr>
             {{/each}}
               </tbody>
