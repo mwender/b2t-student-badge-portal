@@ -9,8 +9,8 @@ namespace B2TBadges\fns\content;
  */
 function classes_endpoint_content() {
 ?>
-<h2>Classes</h2>
-<p>Please see below for a historical listing of classes that you have completed with B2T Training.</p>
+<h2>Classes/Exams</h2>
+<p>Please see below for a historical listing of classes and exams that you have completed with B2T Training.</p>
 <div id="classes">
     <div class="alert alert-info">One moment. Loading...</div>
 </div>
