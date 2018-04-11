@@ -12,7 +12,19 @@ function classes_endpoint_content() {
 <h2>Classes/Exams</h2>
 <p>Please see below for a historical listing of classes and exams that you have completed with B2T Training.</p>
 <div id="classes">
-    <div class="alert alert-info">One moment. Loading...</div>
+  <table class="classes">
+    <thead>
+      <tr>
+        <th style="width: 75%;">Class/Exam</th>
+        <th style="width: 25%;">Date Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ts="0001" class="alert-row">
+        <td colspan="2"><div class="alert alert-info">One moment. Loading...</div></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <?php
 }

@@ -90,32 +90,12 @@
       </div>
     </div>
 </script>
-<script id="classes-template" type="text/x-handlebars-template">
-  <table class="classes">
-    <thead>
-      <tr>
-        <th style="width: 75%;">Class/Exam</th>
-        <th style="width: 25%;">Date Completed</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#if classes}}
-      {{#each classes}}
-      <tr id="{{name}}">
+<script id="table-row-template" type="text/x-handlebars-template">
+    {{#if rows}}
+      {{#each rows}}
+      <tr data-ts="{{timestamp}}">
         <td>{{name}}</td>
-        <td>{{formatDate date day="numeric" month="long" year="numeric"}}</td>
-      </tr>
-      {{/each}}
-    {{/if}}
-    </tbody>
-  </table>
-</script>
-<script id="exam-row-template" type="text/x-handlebars-template">
-    {{#if exams}}
-      {{#each exams}}
-      <tr id="{{name}}">
-        <td>{{name}}</td>
-        <td>{{formatDate date day="numeric" month="long" year="numeric"}}</td>
+        <td>{{formatDate date day="numeric" month="numeric" year="numeric"}}</td>
       </tr>
       {{/each}}
     {{/if}}
