@@ -10,7 +10,10 @@ namespace B2TBadges\fns\content;
 function classes_endpoint_content() {
 ?>
 <h2>Classes/Exams</h2>
-<p>Please see below for a historical listing of classes and exams that you have completed with B2T Training.</p>
+<?php
+$content = do_shortcode( '[snippet slug="classes-exams-tab"]' ) ;
+echo ( $content )? $content : '<pre><strong>MISSING CONTENT</strong><br/>Edit the content here by adding a <a href="' . admin_url( 'edit.php?post_type=snippet' ) . '">Snippet</a> called "Classes/Exams Tab".</pre>';
+?>
 <div id="classes">
   <table class="classes">
     <thead>
@@ -36,11 +39,10 @@ add_action( 'woocommerce_account_classes_endpoint', __NAMESPACE__ . '\\classes_e
 function certification_endpoint_content() {
 ?>
 <h2>Certification Program</h2>
-<p>Use this page to track your progress towards earning badges and certifications. For more on the badges, certifications, and program as a whole, please visit the <a href="<?= site_url('/business-analyst-certification-program/') ?>" target="_blank">B2T Certification</a> and <a href="<?= site_url('/business-analyst-certification-program/faqs/') ?>" target="_blank">FAQ</a> pages on our website. </p>
-<p>Once you have completed a badge or certification, we will issue you a badge in <a href="https://openbadges.org/about/" target="_blank">the Open Badges format</a>. You will be able to share your accomplishment via your <a href="https://backpack.openbadges.org/backpack/welcome" target="_blank">Mozilla Backpack</a> account. Setup <a href="https://backpack.openbadges.org/backpack/welcome" target="_blank">your Backpack account now</a> to start saving and sharing your badges.</p>
-<p>Please note, the <a href="<?= site_url('/my-account/classes/') ?>" target="_blank">class</a> criteria below might not reflect the name of the specific class you took. We have mapped any custom class variation to the standard course and given credit accordingly.</p>
-
-<p>If you have any questions, please <a href="mailto:certification@b2ttraining.com">email</a> or call us at 866.675.2125.</p>
+<?php
+$content = do_shortcode( '[snippet slug="certification-program-tab"]' ) ;
+echo ( $content )? $content : '<pre><strong>MISSING CONTENT</strong><br/>Edit the content here by adding a <a href="' . admin_url( 'edit.php?post_type=snippet' ) . '">Snippet</a> called "Certification Program Tab".</pre>';
+?>
 <div id="tabs">
     <ul>
         <li><a href="#badges">Badges</a></li>
