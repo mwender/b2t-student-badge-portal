@@ -2,6 +2,10 @@
 #left-area article nav.woocommerce-MyAccount-navigation{
   width: 20%;
 
+  @media only screen and (max-width : 920px) {
+    width: 100%;
+  }
+
   ul{
     list-style-type: none;
     padding-left: 0;
@@ -35,4 +39,21 @@
 
 .woocommerce-account .woocommerce-MyAccount-content{
   width: 78%;
+
+  @media only screen and (max-width : 920px) {
+    width: 100%;
+  }
+}
+
+/** Fix the header **/
+body.et_fixed_nav.et_secondary_nav_two_panels #main-header,
+body.et_non_fixed_nav.et_transparent_nav.et_secondary_nav_two_panels #main-header{
+  top: 30px !important;
+}
+#page-container,
+.et_fixed_nav.et_show_nav #page-container,
+.et_fixed_nav.et_show_nav.et_secondary_nav_enabled #page-container,
+.et_non_fixed_nav.et_transparent_nav.et_show_nav #page-container,
+.et_non_fixed_nav.et_transparent_nav.et_show_nav.et_secondary_nav_enabled #page-container{
+  padding-top: 110px !important;
 }
