@@ -10,6 +10,12 @@
     list-style-type: none;
     padding-left: 0;
 
+    /* Hide for use with responsive menu below */
+    @media only screen and (max-width: 920px){
+      position: static;
+      display: none;
+    }
+
     li{
       margin-bottom: 3px;
 
@@ -35,6 +41,40 @@
     }
 
   }
+
+  ul li a:hover + .hidden,
+  .hidden:hover{
+    display: block;
+  }
+}
+
+/** Responsive Menu
+----------------------------------------------- **/
+.show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: @b2torange;
+    background: lighten(#eee,3%);
+    text-align: center;
+    padding: 10px 0;
+    display: none;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    margin-bottom: 30px;
+    cursor: pointer;
+
+    @media only screen and (max-width: 920px){
+      display: block;
+    }
+}
+/*Hide checkbox*/
+input[type=checkbox]{
+    display: none;
+}
+/*Show menu when invisible checkbox is checked*/
+input#show-menu[type=checkbox]:checked ~ nav.woocommerce-MyAccount-navigation ul{
+    display: block !important;
+    margin-top: -20px;
 }
 
 .woocommerce-account .woocommerce-MyAccount-content{

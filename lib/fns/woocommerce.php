@@ -32,3 +32,11 @@ function add_tabs( $items ){
   return $new_items;
 }
 add_filter( 'woocommerce_account_menu_items', __NAMESPACE__ . '\\add_tabs', 20 );
+
+function add_mobile_menu_showhide(){
+?>
+<label for="show-menu" class="show-menu">Show Menu &darr;</label>
+<input type="checkbox" id="show-menu" role="button" />
+<?php
+}
+add_action('woocommerce_before_account_navigation', __NAMESPACE__ . '\\add_mobile_menu_showhide');
