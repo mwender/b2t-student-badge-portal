@@ -68,7 +68,7 @@
     }
 }
 /*Hide checkbox*/
-input[type=checkbox]{
+input#show-menu[type=checkbox]{
     display: none;
 }
 /*Show menu when invisible checkbox is checked*/
@@ -86,14 +86,18 @@ input#show-menu[type=checkbox]:checked ~ nav.woocommerce-MyAccount-navigation ul
 }
 
 /** Fix the header **/
-body.et_fixed_nav.et_secondary_nav_two_panels #main-header,
-body.et_non_fixed_nav.et_transparent_nav.et_secondary_nav_two_panels #main-header{
-  top: 30px !important;
-}
-#page-container,
-.et_fixed_nav.et_show_nav #page-container,
-.et_fixed_nav.et_show_nav.et_secondary_nav_enabled #page-container,
-.et_non_fixed_nav.et_transparent_nav.et_show_nav #page-container,
-.et_non_fixed_nav.et_transparent_nav.et_show_nav.et_secondary_nav_enabled #page-container{
-  padding-top: 110px !important;
+.woocommerce-page{
+  @media only screen and (max-width: 920px){
+    body.et_fixed_nav.et_secondary_nav_two_panels #main-header,
+    body.et_non_fixed_nav.et_transparent_nav.et_secondary_nav_two_panels #main-header{
+      top: 30px !important;
+    }
+    #page-container,
+    .et_fixed_nav.et_show_nav #page-container,
+    .et_fixed_nav.et_show_nav.et_secondary_nav_enabled #page-container,
+    .et_non_fixed_nav.et_transparent_nav.et_show_nav #page-container,
+    .et_non_fixed_nav.et_transparent_nav.et_show_nav.et_secondary_nav_enabled #page-container{
+      padding-top: 110px !important;
+    }
+  }
 }
