@@ -55,7 +55,7 @@
     <div class="certificate-container" id="{{slug}}-certificate">
       <div class="row">
         <div class="col-3 aligncenter">
-          <img src="{{image}}" class="{{#if completed}}completed{{/if}}" alt="{{name}}" />
+          <img src="{{image}}" class="{{#if completed}}completed {{else}}grayscale {{/if}}" alt="{{name}}" />
           {{#if completed}}
           <h5 style="font-weight: bold; padding-bottom: 0">Open Badges</h5>
           <button class="add-to-backpack" data-badge="{{slug}}" data-completed="{{completed_date}}">Add to Backpack</button>

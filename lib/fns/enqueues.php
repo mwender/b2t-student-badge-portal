@@ -30,6 +30,10 @@ function enqueue_scripts(){
             }
         }
 
+        // IE Grayscale
+        wp_enqueue_script( 'jquery-gray', 'https://npmcdn.com/jquery-gray@1.6.0/js/jquery.gray.min.js', ['jquery'], '1.0', true );
+        wp_enqueue_style( 'jquery-gray', 'https://npmcdn.com/jquery-gray@1.6.0/css/gray.min.css' );
+
         add_action('wp_footer', function(){
             $templates = file_get_contents( BADGE_PORTAL_PLUGIN_PATH . 'lib/hbs/handlebars-templates.hbs' );
             echo $templates;
@@ -62,6 +66,7 @@ function enqueue_scripts(){
             'nonce' => wp_create_nonce( 'wp_rest' )
         ]);
     }
+
     wp_enqueue_style( 'b2t-badge-portal', BADGE_PORTAL_PLUGIN_URL . 'lib/css/main.css', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/css/main.css' ) );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts', 20 );
