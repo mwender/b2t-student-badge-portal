@@ -30,6 +30,7 @@ $badges->setTitlePlaceholder( 'Enter the badge name here' );
 $badges->setTitleForm(function(){
   $form = tr_form();
   echo $form->image('Badge Image');
+  echo $form->image('Badge Image Grayscale');
   $editor = $form->editor('post_content');
   echo $editor->setLabel('Criteria');
 });

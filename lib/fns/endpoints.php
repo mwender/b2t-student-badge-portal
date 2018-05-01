@@ -120,6 +120,7 @@ function student_portal_endpoints(){
     'methods' => 'GET',
     'callback' => function( \WP_REST_Request $request ){
       $name = $request['name'];
+      $completed = $request['completed'];
       $name = sanitize_title( $name );
       $badge = get_page_by_path( $name, OBJECT, 'badge' );
 
@@ -128,6 +129,13 @@ function student_portal_endpoints(){
       $data['criteria'] = apply_filters( 'the_content', $badge->post_content );
 
       $image_url = wp_get_attachment_url( get_post_meta( $badge->ID, 'badge_image', true ) );
+
+      if( 'false' == $completed ||  empty($completed) ){
+        $grayscale_image_id = get_post_meta( $badge->ID, 'badge_image_grayscale', true );
+        if( $grayscale_image_id )
+          $image_url = wp_get_attachment_url( $grayscale_image_id );
+      }
+
       if( ! empty( $image_url ) )
         $data['image'] = $image_url;
 
