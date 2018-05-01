@@ -9,7 +9,6 @@ return [
     |
     */
     'plugins' => [
-        'dev',
     ],
 
     /*
@@ -20,7 +19,7 @@ return [
     | Turn on Debugging for TypeRocket. Set to false to disable.
     |
     */
-    'debug' => true,
+    'debug' => false,
 
     /*
     |--------------------------------------------------------------------------
