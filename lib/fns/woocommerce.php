@@ -33,6 +33,26 @@ function add_tabs( $items ){
 }
 add_filter( 'woocommerce_account_menu_items', __NAMESPACE__ . '\\add_tabs', 20 );
 
+/**
+ * Adds an additional message to login errors
+ *
+ * @param      string  $error  The error
+ *
+ * @return     string  Modified login error message.
+ */
+function login_error_notice( $error ){
+
+  if( stristr( $error, 'The password you entered' )
+      || stristr( $error, 'Invalid username' ) )
+    $error.= '<br /><br /><strong>IMPORTANT:</strong> If you’ve never purchased anything on our website, you will not have an account, even if you’ve taken a class with us. Please choose the “Register” option to create an account so that you can view your progress in our Certification Program, your class/exam history, etc.';
+
+  return $error;
+}
+add_filter( 'login_errors', __NAMESPACE__ . '\\login_error_notice' );
+
+/**
+ * Adds a mobile menu showhide.
+ */
 function add_mobile_menu_showhide(){
 ?>
 <label for="show-menu" class="show-menu">Show Menu &darr;</label>
