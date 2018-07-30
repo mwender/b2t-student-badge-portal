@@ -95,7 +95,11 @@
       {{#each rows}}
       <tr data-ts="{{timestamp}}">
         <td>{{name}}</td>
-        <td>{{formatDate date day="numeric" month="numeric" year="numeric"}}</td>
+        <td>
+          {{#if date}}
+            {{formatDate date day="numeric" month="numeric" year="numeric"}}
+          {{/if}}
+        </td>
       </tr>
       {{/each}}
     {{/if}}
