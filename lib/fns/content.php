@@ -11,8 +11,9 @@ function classes_endpoint_content() {
 ?>
 <h2>Classes/Exams</h2>
 <?php
-$content = do_shortcode( '[snippet slug="classes-exams-tab"]' ) ;
-echo ( $content )? $content : '<pre><strong>MISSING CONTENT</strong><br/>Edit the content here by adding a <a href="' . admin_url( 'edit.php?post_type=snippet' ) . '">Snippet</a> called "Classes/Exams Tab".</pre>';
+global $post;
+$content = get_field( 'class_exams_tab' );
+echo ( $content )? apply_filters( 'the_content', $content ) : '<pre><strong>MISSING CONTENT</strong><br/>Add content here by editing the "Class Exams Tab" field for this page. [<a href="' . get_edit_post_link( $post->ID ) . '">Edit</a>]</pre>';
 ?>
 <div id="classes">
   <table class="classes">
@@ -40,8 +41,10 @@ function certification_endpoint_content() {
 ?>
 <h2>Certification Program</h2>
 <?php
-$content = do_shortcode( '[snippet slug="certification-program-tab"]' ) ;
-echo ( $content )? $content : '<pre><strong>MISSING CONTENT</strong><br/>Edit the content here by adding a <a href="' . admin_url( 'edit.php?post_type=snippet' ) . '">Snippet</a> called "Certification Program Tab".</pre>';
+global $post;
+$content = apply_filters( 'the_content', get_post_meta($post->ID, 'certification_program_tab', true) );
+$content = get_field('certification_program_tab');
+echo ( $content )? $content : '<pre><strong>MISSING CONTENT</strong><br/>Add content here by editing the "Certification Program Tab" field for this page. [<a href="' . get_edit_post_link( $post->ID ) . '">Edit</a>]</pre>';
 ?>
 <div id="tabs">
     <ul>

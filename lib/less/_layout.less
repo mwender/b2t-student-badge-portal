@@ -1,5 +1,8 @@
 /* My Account Layout */
-.woocommerce-account #main-content article nav.woocommerce-MyAccount-navigation{
+.woocommerce{
+  margin-bottom: 80px;
+}
+.woocommerce-account main .page-content nav.woocommerce-MyAccount-navigation{
   width: 20%;
 
   @media only screen and (max-width : 920px) {
@@ -21,20 +24,21 @@
 
       a{
         display: block;
-        background-color: #eee;
+        background-color: @netmindblue;
+        color: #fff;
         padding: .25rem .75rem;
-        border: 1px solid #eee;
+        border: 1px solid @netmindlightgrey;
         border-radius: 3px;
       }
 
       &.is-active{
         a{
-          background-color: #fff;
+          background-color: @netmindlightblue;
         }
       }
       &:hover{
         a{
-          background-color: lighten(#eee,3%);
+          background-color: @netmindlightblue;
           text-decoration: none;
         }
       }
@@ -79,6 +83,10 @@ input#show-menu[type=checkbox]:checked ~ nav.woocommerce-MyAccount-navigation ul
 
 .woocommerce-account .woocommerce-MyAccount-content{
   width: 78%;
+
+  & > h2:first-of-type{
+    margin-top: 0;
+  }
 
   @media only screen and (max-width : 920px) {
     width: 100%;

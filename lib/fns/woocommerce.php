@@ -21,7 +21,7 @@ function add_tabs( $items ){
     'certification' => $items['certification'],
     'classes' => $items['classes'],
     'orders' => $items['orders'],
-    'subscriptions' => $items['subscriptions'],
+    /*'subscriptions' => $items['subscriptions'],*/
     'downloads' => $items['downloads'],
     'edit-account' => $items['edit-account'],
     'edit-address' => $items['edit-address'],
