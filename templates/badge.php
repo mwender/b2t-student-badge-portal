@@ -30,7 +30,7 @@
     <hr />
     <div class="row footer">
       <div class="column">
-        <p class="small">This page serves to document the criteria for B2T Training's <em><?= get_the_title( $post->ID ) ?></em> Badge. For more information, please visit <a href="<?= site_url() ?>">the <?= get_bloginfo( 'name' ) ?> website</a>.<br/>&copy; Copyright <?= date('Y') ?> <?= get_bloginfo( 'name' ) ?>. All rights reserved.</p>
+        <p class="small">This page serves to document the criteria for Netmind's <em><?= get_the_title( $post->ID ) ?></em> Badge. For more information, please visit <a href="<?= site_url() ?>">the <?= get_bloginfo( 'name' ) ?> website</a>.<br/>&copy; Copyright <?= date('Y') ?> <?= get_bloginfo( 'name' ) ?>. All rights reserved.</p>
       </div>
     </div>
   </main>
