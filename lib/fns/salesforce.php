@@ -86,7 +86,7 @@ function salesforce_endpoint(){
           // Cache Student Data for 24hrs
           $transient_id = 'student-badges_' . $student_id;
           if( false === ( $response = get_transient( $transient_id ) ) ){
-            if( ! isset( $_SESSION['SF_SESSION'] ) )
+            if( ! isset( $_SESSION['SF_SESSION'] ) || ! \property_exists( $_SESSION['SF_SESSION'], 'access_token' ) )
               login();
 
             $response = get_student_data([
@@ -95,7 +95,8 @@ function salesforce_endpoint(){
               'contact_id' => $student_id,
               'data_type' => 'badges',
             ]);
-            set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
+            if( ! is_wp_error( $response ) )
+              set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
           }
           break;
 
@@ -107,13 +108,15 @@ function salesforce_endpoint(){
       return $response;
     },
     'permission_callback' => function(){
+      check_ajax_referer( 'wp_rest', 'security' );
+
       if( ! current_user_can( 'read' ) ){
-        return new \WP_Error( 'rest_forbidden', __('Permission denied'), ['status' => 401] );
+        return new \WP_Error( 'rest_forbidden', __( 'Permission denied, user does not have `read` permissions.' ), ['status' => 401] );
       }
+
 
       return true;
     }
-    /**/
   ]);
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\salesforce_endpoint' );
@@ -155,9 +158,11 @@ function login(){
 
   if( ! is_wp_error( $response ) ){
     $data = json_decode( wp_remote_retrieve_body( $response ) );
-    $_SESSION['SF_SESSION'] = $data;
-    $response = new \stdClass();
-    $response->data = $data;
+    if( ! array_key_exists( 'error', $data ) ){
+      $_SESSION['SF_SESSION'] = $data;
+      $response = new \stdClass();
+      $response->data = $data;
+    }
   }
 
   return $response;
