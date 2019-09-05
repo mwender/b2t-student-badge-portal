@@ -2,7 +2,7 @@
 /*
  * Open Badges Docs: https://github.com/mozilla/openbadges-backpack/wiki/Using-the-Issuer-API
  */
-namespace B2TBadges\fns\endpoint;
+namespace BadgePortal\fns\endpoint;
 
 /**
  * Adds badge portal endpoints
@@ -12,6 +12,22 @@ function badge_portal_endpoints(){
     add_rewrite_endpoint( 'certification', EP_PAGES );
 }
 add_action( 'init', __NAMESPACE__ . '\\badge_portal_endpoints' );
+
+/**
+ * Check whether the currently viewed page is an endpoint
+ *
+ * @param      string  $endpoint  The endpoint
+ *
+ * @return     boolean  Returns TRUE if is an endpoint.
+ */
+function is_endpoint( $endpoint = false ){
+    global $wp_query;
+
+    if( ! $wp_query )
+        return false;
+
+    return isset( $wp_query->query[ $endpoint ] );
+}
 
 /**
  * Open Badges endpoint definitions

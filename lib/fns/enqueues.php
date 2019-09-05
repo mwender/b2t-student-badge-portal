@@ -1,9 +1,9 @@
 <?php
 
-namespace B2TBadges\fns\enqueues;
+namespace BadgePortal\fns\enqueues;
 
 function enqueue_scripts(){
-    if( \b2t_is_endpoint( 'certification' ) || \b2t_is_endpoint( 'classes' )  ){
+    if( \BadgePortal\fns\endpoint\is_endpoint( 'certification' ) || \BadgePortal\fns\endpoint\is_endpoint( 'classes' )  ){
         wp_dequeue_script( 'divi-custom-script' );
 
         wp_register_script( 'handlebars', BADGE_PORTAL_PLUGIN_URL . 'lib/js/handlebars-v4.0.5.js', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/handlebars-v4.0.5.js' ), true );
@@ -35,7 +35,7 @@ function enqueue_scripts(){
             echo $templates;
         });
     }
-    if( \b2t_is_endpoint( 'certification' ) ){
+    if( \BadgePortal\fns\endpoint\is_endpoint( 'certification' ) ){
         wp_register_script( 'open-badges-issuer', 'https://backpack.openbadges.org/issuer.js', null, null, true );
         wp_enqueue_script( 'b2t-badges-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badges-tab.js', ['jquery','handlebars','handlebars-intl','open-badges-issuer','jquery-ui-tabs'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badges-tab.js' ), true );
 
@@ -51,7 +51,7 @@ function enqueue_scripts(){
 
 
     }
-    if( \b2t_is_endpoint( 'classes' ) ){
+    if( \BadgePortal\fns\endpoint\is_endpoint( 'classes' ) ){
 
         wp_enqueue_script( 'b2t-classes-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/classes-tab.js', ['jquery','handlebars','handlebars-intl'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/classes-tab.js' ), true );
 
