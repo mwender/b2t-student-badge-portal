@@ -108,7 +108,7 @@ function salesforce_endpoint(){
       return $response;
     },
     'permission_callback' => function(){
-      check_ajax_referer( 'wp_rest', 'security' );
+      check_ajax_referer( 'wp_rest', 'security', false );
 
       if( ! current_user_can( 'read' ) ){
         return new \WP_Error( 'rest_forbidden', __( 'Permission denied, user does not have `read` permissions.' ), ['status' => 401] );
