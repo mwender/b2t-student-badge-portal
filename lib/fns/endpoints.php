@@ -91,7 +91,8 @@ function student_portal_endpoints(){
         },
         'required' => true
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ]);
 
   /**
@@ -126,7 +127,8 @@ function student_portal_endpoints(){
         },
         'required' => true
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ]);
 
   /**
@@ -168,7 +170,8 @@ function student_portal_endpoints(){
         },
         'required' => true
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ]);
 
   /**
@@ -185,7 +188,8 @@ function student_portal_endpoints(){
       $data['image'] = get_site_icon_url();
 
       return $data;
-    }
+    },
+    'permission_callback' => '__return_true',
   ]);
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\student_portal_endpoints' );
