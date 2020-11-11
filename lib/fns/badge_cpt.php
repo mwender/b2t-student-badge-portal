@@ -55,7 +55,7 @@ add_action( 'template_include', 'load_badge_template' );
 function remove_adminbar_on_badge_template($bool){
     global $wp_query;
 
-    if( ! is_admin() && 'badge' == $wp_query->query_vars['post_type'] )
+    if( ! is_admin() && array_key_exists( 'post_type', $wp_query->query_vars ) && 'badge' == $wp_query->query_vars['post_type'] )
         return false;
 
     return $bool;
