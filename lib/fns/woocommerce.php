@@ -10,6 +10,9 @@ namespace B2TBadges\fns\woocommerce;
  * @return     array  Ammended nav items array
  */
 function add_tabs( $items ){
+  if( 'en_US' != BADGE_LOCALE )
+    return $items;
+
   $items = array_slice( $items, 0, 2, true ) + [ 'classes' => __( 'Classes/Exams', 'b2t-student-badge-tabs' ) ] + [ 'certification' => __( 'Certification Program', 'b2t-student-badge-tabs' ) ] + array_slice( $items, 2, null, true ) ;
 
   foreach ($items as $key => $value) {
@@ -21,17 +24,18 @@ function add_tabs( $items ){
     'certification' => $items['certification'],
     'classes' => $items['classes'],
     'orders' => $items['orders'],
-    /*'subscriptions' => $items['subscriptions'],*/
     'downloads' => $items['downloads'],
     'edit-account' => $items['edit-account'],
     'edit-address' => $items['edit-address'],
-    'payment-methods' => $items['payment-methods'],
-    'customer-logout' => $items['customer-logout'],
   ];
+  if( array_key_exists( 'payment-methods', $items ) )
+    $new_items['payment-methods'] = $items['payment-methods'];
+  $new_items['customer-logout'] = $items['customer-logout'];
 
   return $new_items;
 }
-add_filter( 'woocommerce_account_menu_items', __NAMESPACE__ . '\\add_tabs', 20 );
+if( 'en_US' == BADGE_LOCALE )
+  add_filter( 'woocommerce_account_menu_items', __NAMESPACE__ . '\\add_tabs', 20 );
 
 /**
  * Adds an additional message to login errors
