@@ -14,7 +14,7 @@
   "license": "ISC",
   "homepage": "https://github.com/mwender/b2t-student-badge-portal",
   "devDependencies": {
-    "grunt": "^1.2.1",
+    "grunt": "^1.3.0",
     "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "load-grunt-tasks": "^3.3.0"
