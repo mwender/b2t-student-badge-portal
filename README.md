@@ -1,4 +1,4 @@
-# B2T Student Badge Portal #
+# B2T Student Badge Portal
 **Contributors:** thewebist
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 4.7.0
@@ -9,43 +9,46 @@
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
-## Changelog ##
+## Changelog
 
-### 1.0.5 ###
+### 1.1.0
+* Changing "Netmind" to "B2T Training".
+
+### 1.0.5
 * Adding compiled CSS to repositorty (i.e. `lib/css/`).
 
-### 1.0.4 ###
+### 1.0.4
 * Removing "Cert. Program" and "Classes/Exams" for non-English viewers.
 
-### 1.0.3 ###
+### 1.0.3
 * Checking for the existence of `$wp_query->query_vars`.
 
-### 1.0.2 ###
+### 1.0.2
 * WP 5.5 compatibility: Adding `permission_callback` for REST endpoints.
 
-### 1.0.1 ###
+### 1.0.1
 * Adding "No Classes Found" message for an empty class data response returned from SalesForce.
 
-### 1.0.0 ###
+### 1.0.0
 * Student Classes tab.
 * Initial production release.
 
-### 0.1.4 ###
+### 0.1.4
 * Making sure `No Student Data Found` message shows.
 * Updating My Account subnav order.
 
-### 0.1.3 ###
+### 0.1.3
 * Ensuring SalesForce session is present before querying data from the API.
 * Overall layout improvements.
 
-### 0.1.2 ###
+### 0.1.2
 * Badge/Certificates tab layout updates.
 
-### 0.1.1 ###
+### 0.1.1
 * Adding default badge image.
 
-### 0.1.0 ###
+### 0.1.0
 * Moving SF login inside enqueues.
 
-### 0.0.9 ###
+### 0.0.9
 * Connects to SalesForce to retrieve Student data.
