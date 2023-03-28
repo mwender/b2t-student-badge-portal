@@ -158,11 +158,11 @@ function login(){
 
   if( ! is_wp_error( $response ) ){
     $data = json_decode( wp_remote_retrieve_body( $response ) );
-    if( ! array_key_exists( 'error', $data ) ){
+    //if( ! property_exists( $data, 'error' ) ){
       $_SESSION['SF_SESSION'] = $data;
       $response = new \stdClass();
       $response->data = $data;
-    }
+    //}
   }
 
   return $response;
