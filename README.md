@@ -3,13 +3,17 @@
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 4.7.0
 **Tested up to:** 5.6
-**Stable tag:** 1.0.5
+**Stable tag:** 1.1.1
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
 ## Changelog
+
+### 1.1.1
+* Updating colors to match B2T branding.
+* Updating default badge image.
 
 ### 1.1.0
 * Changing "Netmind" to "B2T Training".
