@@ -16,11 +16,15 @@ function enqueue_scripts(){
             if( ! isset( $_SESSION['SF_SESSION'] ) )
                 \B2TBadges\fns\salesforce\login();
 
-            $student = \B2TBadges\fns\salesforce\get_student_id([
-                'access_token'  => $_SESSION['SF_SESSION']->access_token,
-                'instance_url'  => $_SESSION['SF_SESSION']->instance_url,
-                'email'         => $current_user->user_email,
-            ]);
+            if( property_exists( $_SESSION['SF_SESSION'], 'access_token') && property_exists( $_SESSION['SF_SESSION'], 'instance_url') ){
+                $student = \B2TBadges\fns\salesforce\get_student_id([
+                    'access_token'  => $_SESSION['SF_SESSION']->access_token,
+                    'instance_url'  => $_SESSION['SF_SESSION']->instance_url,
+                    'email'         => $current_user->user_email,
+                ]);
+            } else {
+                $student = new WP_Error( 'noconnection', __( 'SalesForce session variable missing either `access_token` or `instance_url`.' ) );
+            }
 
             if( ! is_wp_error( $student ) ){
                 add_user_meta( $current_user->ID, 'sf_student_id', $student->student_id, true );
