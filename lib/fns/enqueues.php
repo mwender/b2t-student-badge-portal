@@ -23,7 +23,7 @@ function enqueue_scripts(){
                     'email'         => $current_user->user_email,
                 ]);
             } else {
-                $student = new WP_Error( 'noconnection', __( 'SalesForce session variable missing either `access_token` or `instance_url`.' ) );
+                $student = new \WP_Error( 'noconnection', __( 'SalesForce session variable missing either `access_token` or `instance_url`.' ) );
             }
 
             if( ! is_wp_error( $student ) ){
