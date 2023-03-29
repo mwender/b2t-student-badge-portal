@@ -7,7 +7,7 @@
  * Author URI:      https://mwender.com
  * Text Domain:     b2t-student-badge-tabs
  * Domain Path:     /languages
- * Version:         1.1.3.1
+ * Version:         1.1.4
  *
  * @package         B2t_Student_Badge_Tabs
  */
@@ -32,3 +32,22 @@ require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/inlinestyles.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/salesforce.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/woocommerce.php' );
+
+if( ! function_exists( 'uber_log' ) ){
+  /**
+   * Enhanced logging.
+   *
+   * @param      string  $message  The log message
+   */
+  function uber_log( $message = null ){
+    static $counter = 1;
+
+    $bt = debug_backtrace();
+    $caller = array_shift( $bt );
+
+    if( 1 == $counter )
+      error_log( "\n\n" . str_repeat('-', 25 ) . ' STARTING DEBUG [' . date('h:i:sa', current_time('timestamp') ) . '] ' . str_repeat('-', 25 ) . "\n\n" );
+    error_log( "\n" . $counter . '. ' . basename( $caller['file'] ) . '::' . $caller['line'] . "\n" . $message . "\n---\n" );
+    $counter++;
+  }
+}

@@ -3,13 +3,17 @@
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 4.7.0
 **Tested up to:** 6.1.1
-**Stable tag:** 1.1.3.1
+**Stable tag:** 1.1.4
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
 ## Changelog
+
+### 1.1.4
+* Logging SF API Login response.
+* Adding `uber_log()`.
 
 ### 1.1.3.1
 * Using top level namespace for `new WP_Error`.
