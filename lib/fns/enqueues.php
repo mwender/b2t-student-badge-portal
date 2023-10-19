@@ -16,7 +16,7 @@ function enqueue_scripts(){
             if( ! isset( $_SESSION['SF_SESSION'] ) )
                 \B2TBadges\fns\salesforce\login();
 
-            if( property_exists( $_SESSION['SF_SESSION'], 'access_token') && property_exists( $_SESSION['SF_SESSION'], 'instance_url') ){
+            if( array_key_exists( 'SF_SESSION', $_SESSION ) && is_object( $_SESSION['SF_SESSION'] ) && property_exists( $_SESSION['SF_SESSION'], 'access_token') && property_exists( $_SESSION['SF_SESSION'], 'instance_url') ){
                 $student = \B2TBadges\fns\salesforce\get_student_id([
                     'access_token'  => $_SESSION['SF_SESSION']->access_token,
                     'instance_url'  => $_SESSION['SF_SESSION']->instance_url,
