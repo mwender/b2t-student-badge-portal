@@ -57,9 +57,6 @@ function zoho_endpoint(){
           $transient_id = 'student-exams_' . $student_id;
 
           if( false === ( $response = get_transient( $transient_id ) ) ){
-            if( ! isset( $_SESSION['SF_SESSION'] ) )
-              login();
-
             $response = get_student_data([
               'student_id' => $student_id,
               'data_type' => 'exams',
@@ -91,7 +88,7 @@ function zoho_endpoint(){
       return $response;
     },
     'permission_callback' => function(){
-      return true;
+      //return true;
 
       check_ajax_referer( 'wp_rest', 'security', false );
 
