@@ -1,35 +1,25 @@
 <?php
 
 namespace BadgePortal\fns\enqueues;
+use function B2TBadges\fns\zoho\get_student_id;
 
 function enqueue_scripts(){
     if( \BadgePortal\fns\endpoint\is_endpoint( 'certification' ) || \BadgePortal\fns\endpoint\is_endpoint( 'classes' )  ){
-        wp_dequeue_script( 'divi-custom-script' );
 
         wp_register_script( 'handlebars', BADGE_PORTAL_PLUGIN_URL . 'lib/js/handlebars-v4.0.5.js', null, filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/handlebars-v4.0.5.js' ), true );
         wp_register_script( 'handlebars-intl', BADGE_PORTAL_PLUGIN_URL . 'lib/js/handlebars-intl.min.js', ['handlebars'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/handlebars-intl.min.js'), true );
 
         $current_user = wp_get_current_user();
-        $student_id = get_user_meta( $current_user->ID, 'sf_student_id', true );
+        $student_id = get_user_meta( $current_user->ID, 'zh_student_id', true );
 
         if( empty( $student_id ) ){
-            if( ! isset( $_SESSION['SF_SESSION'] ) )
-                \B2TBadges\fns\salesforce\login();
+            $data = get_student_id( array( 'email' => $current_user->user_email ) );
 
-            if( array_key_exists( 'SF_SESSION', $_SESSION ) && is_object( $_SESSION['SF_SESSION'] ) && property_exists( $_SESSION['SF_SESSION'], 'access_token') && property_exists( $_SESSION['SF_SESSION'], 'instance_url') ){
-                $student = \B2TBadges\fns\salesforce\get_student_id([
-                    'access_token'  => $_SESSION['SF_SESSION']->access_token,
-                    'instance_url'  => $_SESSION['SF_SESSION']->instance_url,
-                    'email'         => $current_user->user_email,
-                ]);
+            if( ! is_wp_error( $data ) ){
+                update_user_meta( $current_user->ID, 'zh_student_id', $data->student_id );
+                $student_id = $data->student_id;
             } else {
-                $student = new \WP_Error( 'noconnection', __( 'SalesForce session variable missing either `access_token` or `instance_url`.' ) );
-            }
-
-            if( ! is_wp_error( $student ) ){
-                add_user_meta( $current_user->ID, 'sf_student_id', $student->student_id, true );
-                $student_id = $student->student_id;
-            } else {
+                uber_log( '[ERROR] get_student_id(' . $current_user->user_email . ') returned: ' . $data->get_error_message() . ' with code `' . $data->get_error_code() . '`.' );
                 $student_id = '';
             }
         }
@@ -44,7 +34,7 @@ function enqueue_scripts(){
         wp_enqueue_script( 'b2t-badges-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badges-tab.js', ['jquery','handlebars','handlebars-intl','open-badges-issuer','jquery-ui-tabs'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badges-tab.js' ), true );
 
         wp_localize_script( 'b2t-badges-tab', 'wpvars', [
-            'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/sf/' ),
+            'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/zh/' ),
             'student_id' => $student_id,
             'student_email' => $current_user->user_email,
             'criteriaurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/criteria?name=' ),
@@ -60,7 +50,7 @@ function enqueue_scripts(){
         wp_enqueue_script( 'b2t-classes-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/classes-tab.js', ['jquery','handlebars','handlebars-intl'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/classes-tab.js' ), true );
 
         wp_localize_script( 'b2t-classes-tab', 'wpvars', [
-            'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/sf/' ),
+            'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/zh/' ),
             'student_id' => $student_id,
             'student_email' => $current_user->user_email,
             'nonce' => wp_create_nonce( 'wp_rest' )
