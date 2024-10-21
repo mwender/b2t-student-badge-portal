@@ -235,6 +235,9 @@ function get_student_id( $args = [] ){
   if( $body )
     $json_body = json_decode( $body );
 
+  if( property_exists( $json_body, 'details' ) && ! property_exists( $json_body->details, 'output' ) )
+    return new \WP_Error( 'noidreturned', __( 'No Studend ID returned for `' . $args['email'] . '`.' ) );
+
   $data = json_decode( $json_body->details->output  );
 
   if( is_wp_error( $response ) ){
