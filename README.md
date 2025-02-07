@@ -2,14 +2,17 @@
 **Contributors:** thewebist
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 6.1.0
-**Tested up to:** 6.6.2
-**Stable tag:** 1.2.2
+**Tested up to:** 6.7
+**Stable tag:** 1.3.0
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
 ## Changelog
+
+### 1.3.0
+* Converting Certification and Classes tab content to be pulled from an ACF Options Page field.
 
 ### 1.2.2
 * Handling no student found for given email.

@@ -12,7 +12,7 @@ function classes_endpoint_content() {
 <h2>Classes/Exams</h2>
 <?php
 global $post;
-$content = get_field( 'class_exams_tab' );
+$content = get_field( 'class_exams_tab', 'option' );
 echo ( $content )? apply_filters( 'the_content', $content ) : '<pre><strong>MISSING CONTENT</strong><br/>Add content here by editing the "Class Exams Tab" field for this page. [<a href="' . get_edit_post_link( $post->ID ) . '">Edit</a>]</pre>';
 ?>
 <div id="classes">
@@ -43,7 +43,7 @@ function certification_endpoint_content() {
 <?php
 global $post;
 $content = apply_filters( 'the_content', get_post_meta($post->ID, 'certification_program_tab', true) );
-$content = get_field('certification_program_tab');
+$content = get_field( 'certification_program_tab', 'option' );
 echo ( $content )? $content : '<pre><strong>MISSING CONTENT</strong><br/>Add content here by editing the "Certification Program Tab" field for this page. [<a href="' . get_edit_post_link( $post->ID ) . '">Edit</a>]</pre>';
 ?>
 <div id="tabs">
