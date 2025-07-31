@@ -1,9 +1,23 @@
 /* Tables */
-#content-area table.classes{
+table.classes{
   th,
   td{
     padding: .5em .35em;
     line-height: 20px;
+  }
+
+  th{
+    cursor: pointer;
+
+    &.sorted-asc,
+    &.sorted-desc{
+      font-weight: bold;
+      color: @b2tlightblue;
+    }
+  }
+
+  .sort-indicator{
+    font-size: .75em;
   }
 
   td:nth-child(2){
@@ -18,8 +32,11 @@
     width: 25%;
   }
 
-  tr:nth-child(even) td{
+  tr:nth-child(odd) td{
     background-color: lighten(#000,97%);
   }
+  tr:nth-child(even) td{
+    background-color: #fff;
+  }  
 
 }
