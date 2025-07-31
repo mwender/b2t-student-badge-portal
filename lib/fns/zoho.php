@@ -88,7 +88,8 @@ function zoho_endpoint(){
       return $response;
     },
     'permission_callback' => function(){
-      //return true;
+      if( IS_LOCAL )
+        return true;
 
       check_ajax_referer( 'wp_rest', 'security', false );
 
