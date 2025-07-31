@@ -19,8 +19,8 @@ echo ( $content )? apply_filters( 'the_content', $content ) : '<pre><strong>MISS
   <table class="classes">
     <thead>
       <tr>
-        <th style="width: 75%;">Class/Exam</th>
-        <th style="width: 25%;">Date Completed</th>
+        <th class="sortable" data-sort="name" style="width: 75%;">Class/Exam</th>
+        <th class="sortable" data-sort="timestamp" style="width: 25%;">Date Completed</th>
       </tr>
     </thead>
     <tbody>
