@@ -46,7 +46,28 @@ function zoho_endpoint(){
               'student_id' => $student_id,
               'data_type' => 'classes',
             ]);
-            set_transient( $transient_id, $response, 24 * HOUR_IN_SECONDS );
+            $transient_length = ( IS_LOCAL )? 5 * MINUTE_IN_SECONDS : 24 * HOUR_IN_SECONDS ;
+            set_transient( $transient_id, $response, $transient_length );
+          }
+
+          $classes = $response->records;
+
+          foreach( $classes as $key => $obj ){
+
+
+            $class = $obj->Class__r;
+            
+            $name = $class->Name;
+            $resource_page = get_page_by_title( $name, OBJECT, 'resource-page' );
+            $resource_page_id = ( $resource_page )? $resource_page->ID : null ;
+            $response->records[$key]->resource_page = array( 'name' => $name, 'id' => $resource_page_id );
+          }
+
+          $totalSize = ( $response->totalSize )? $response->totalSize : null ;
+          if( $totalSize ){
+            badgeportal_uber_log('🔔 $totalSize = ' . $totalSize );
+          } else {
+            badgeportal_uber_log('⚠️ No records returned.');
           }
           break;
 
@@ -140,15 +161,19 @@ function get_student_data( $args = [] ){
   $request_url = add_query_arg( $query_args, $ep . "getstudent{$query_type}/actions/execute" );
 
   $response = wp_remote_get( $request_url, array(
-    'timeout' => 10,
+    'timeout' => 15,
   ));
+  if( is_wp_error( $response ) )
+    badgeportal_uber_log( '⚠️ ERROR: ZOHO $response = ', $response );
 
   $body = wp_remote_retrieve_body( $response );
 
-  if( $body )
+  $data = new \stdClass();
+  if( $body ){
     $json_body = json_decode( $body );
+    $data = json_decode( $json_body->details->output  );
+  }
 
-  $data = json_decode( $json_body->details->output  );
   return $data;
 }
 
