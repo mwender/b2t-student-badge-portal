@@ -65,9 +65,9 @@ function zoho_endpoint(){
 
           $totalSize = ( $response->totalSize )? $response->totalSize : null ;
           if( $totalSize ){
-            badgeportal_uber_log('🔔 $totalSize = ' . $totalSize );
+            uber_log('🔔 $totalSize = ' . $totalSize );
           } else {
-            badgeportal_uber_log('⚠️ No records returned.');
+            uber_log('⚠️ No records returned.');
           }
           break;
 
@@ -164,7 +164,7 @@ function get_student_data( $args = [] ){
     'timeout' => 15,
   ));
   if( is_wp_error( $response ) )
-    badgeportal_uber_log( '⚠️ ERROR: ZOHO $response = ', $response );
+    uber_log( '⚠️ ERROR: ZOHO $response = ', $response );
 
   $body = wp_remote_retrieve_body( $response );
 
