@@ -56,19 +56,27 @@ add_action( 'rest_api_init', function () {
 
         foreach ( $resources as $resource ) {
           $resources_html .= '<tr>';
-          $resources_html .= '<td>' . esc_html( $resource['title'] ) . '</td>';
-          $resources_html .= '<td>' . esc_html( human_filesize( $resource['filesize'] ) ) . '</td>';
-          //$resources_html .= '<td><a href="' . esc_url( $resource['url'] ) . '">' . esc_html( $resource['filename'] ) . '</a></td>';
-          $resources_html .= '<td>'.do_shortcode( '[download id="'.$resource['ID'].'"]' ).'</td>';
-          $resources_html .= '</tr>';
+          $resources_html .= '<td>' . esc_html( do_shortcode( '[download_data id="' . $resource->ID . '" data="title"]' ) ) . '</td>';
+          $resources_html .= '<td>' . esc_html( do_shortcode( '[download_data id="' . $resource->ID . '" data="filesize"]' ) ) . '</td>';
+          $resources_html .= '<td><a href="' . esc_url( do_shortcode( '[download_data id="' . $resource->ID . '" data="download_link"]' ) ) . '">' . esc_html( do_shortcode( '[download_data id="' . $resource->ID . '" data="filename"]' ) ) . '</a></td>';
+          $resources_html .= '</tr>';            
         }
 
         $resources_html .= '</tbody></table>';
-      } 
+      }
+
+      $content = apply_filters( 'the_content', $post->post_content );
+      if( empty( $content ) ){
+        if( ! empty( $resource_html ) ){
+          $content = 'Download the following resources for <em>' . get_the_title( $post ) . '</em>:';
+        } else {
+          $content = 'No downloads are currently available for <em>' . get_the_title( $post ) . '</em>. Please check back later.';
+        }
+      }
 
       return [
         'post_title'   => get_the_title( $post ),
-        'content' => apply_filters( 'the_content', $post->post_content ) . $resources_html,
+        'content' => $content . $resources_html,
       ];
     },
     'permission_callback' => '__return_true',
