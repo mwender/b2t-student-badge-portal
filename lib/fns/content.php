@@ -19,13 +19,14 @@ echo ( $content )? apply_filters( 'the_content', $content ) : '<pre><strong>MISS
   <table class="classes">
     <thead>
       <tr>
-        <th class="sortable" data-sort="name" style="width: 75%;">Class/Exam</th>
-        <th class="sortable" data-sort="timestamp" style="width: 25%;">Date Completed</th>
+        <th class="sortable" data-sort="name" style="width: 65%;">Class/Exam</th>
+        <th class="" style="width: 20%;">Student Resources</th>
+        <th class="sortable" data-sort="timestamp" style="width: 15%; text-align: right;">Date Completed</th>
       </tr>
     </thead>
     <tbody>
       <tr data-ts="0001" class="alert-row">
-        <td colspan="2"><div class="alert alert-info">One moment. Loading...</div></td>
+        <td colspan="3"><div class="alert alert-info">One moment. Loading...</div></td>
       </tr>
     </tbody>
   </table>

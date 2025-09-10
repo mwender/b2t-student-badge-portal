@@ -52,15 +52,40 @@ function zoho_endpoint(){
 
           $classes = $response->records;
 
-          foreach( $classes as $key => $obj ){
-
+          /**
+           * Build Student Resource page links
+           */
+          foreach ( $classes as $key => $obj ) {
 
             $class = $obj->Class__r;
-            
+
             $name = $class->Name;
             $resource_page = get_page_by_title( $name, OBJECT, 'resource-page' );
-            $resource_page_id = ( $resource_page )? $resource_page->ID : null ;
-            $response->records[$key]->resource_page = array( 'name' => $name, 'id' => $resource_page_id );
+            $resource_page_id = ( $resource_page ) ? $resource_page->ID : null;
+
+            // Default downloads count
+            $total_downloads = 0;
+
+            if ( $resource_page_id ) {
+              // Count repeater rows if they exist
+              if ( have_rows( 'resources', $resource_page_id ) ) {
+                $total_downloads = count( get_field( 'resources', $resource_page_id ) );
+              }
+            }
+
+            $link_text = '';
+            if( 1 === $total_downloads ){
+              $link_text = '1 Download';
+            } else if( 1 < $total_downloads ){
+              $link_text = $total_downloads . ' Downloads';
+            }
+
+            $response->records[ $key ]->resource_page = array(
+              'name'            => $name,
+              'id'              => $resource_page_id,
+              'total_downloads' => $total_downloads,
+              'link_text'       => $link_text,
+            );
           }
 
           $totalSize = ( $response->totalSize )? $response->totalSize : null ;

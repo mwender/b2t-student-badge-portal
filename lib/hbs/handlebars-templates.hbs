@@ -94,8 +94,9 @@
     {{#if rows}}
       {{#each rows}}
       <tr data-ts="{{timestamp}}">
-        <td>{{#if resource_id}}<a class="resource-page-link" href="#" data-resource-page-id="{{resource_id}}">{{/if}}{{name}}{{#if resource_id}}</a>{{/if}}</td>
-        <td>
+        <td>{{name}}</td>
+        <td style="text-align: center;">{{#if resource_id}}<a class="resource-page-link" href="#" data-resource-page-id="{{resource_id}}">{{link_text}}</a>{{/if}}</td>
+        <td style="text-align: center;">
           {{#if date}}
             {{formatDate date day="numeric" month="numeric" year="numeric"}}
           {{/if}}
