@@ -3,13 +3,16 @@
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 6.1.0
 **Tested up to:** 6.7
-**Stable tag:** 1.3.1
+**Stable tag:** 1.4.0
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
 ## Changelog
+
+### 1.4.0
+* Adding "Student Resources" column to "My Account > Classes/Exams" table.
 
 ### 1.3.1
 * Updating Certification and Classes text content to pull from an ACF Group > Subfield.
