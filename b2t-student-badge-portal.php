@@ -7,7 +7,7 @@
  * Author URI:      https://mwender.com
  * Text Domain:     b2t-student-badge-tabs
  * Domain Path:     /languages
- * Version:         1.4.0
+ * Version:         1.4.1
  *
  * @package         B2t_Student_Badge_Tabs
  */
@@ -20,6 +20,9 @@ define( 'BADGE_PORTAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BADGE_PORTAL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BADGE_API_NAMESPACE', 'b2tbadges/v1' );
 define( 'BADGE_LOCALE', get_locale() );
+if ( ! defined( 'IS_LOCAL' ) )
+  define( 'IS_LOCAL', false );
+
 
 // Load libraries
 require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
