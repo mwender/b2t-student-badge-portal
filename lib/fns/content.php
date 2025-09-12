@@ -9,7 +9,7 @@ namespace B2TBadges\fns\content;
  */
 function classes_endpoint_content() {
 ?>
-<h2>Classes/Exams</h2>
+<h2>Classes, Exams, and Downloads</h2>
 <?php
 global $post;
 $content = get_field( 'my_account_class_exams_tab', 'option' );
