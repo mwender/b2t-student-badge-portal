@@ -3,7 +3,7 @@
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 6.1.0
 **Tested up to:** 6.7
-**Stable tag:** 1.4.3
+**Stable tag:** 1.4.4
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,8 +11,11 @@ A WordPress plugin which provides a listing of B2T Student Badges/Certificates i
 
 ## Changelog
 
-### 1.4.3
+### 1.4.4
 * Updating "My Account > Classes/Exams" to "My Account > Classes, Exams, and Downloads".
+
+### 1.4.3
+* Correcting Popup ID.
 
 ### 1.4.2
 * Updating Elementor popup id in `student-resources-popup.js`.
