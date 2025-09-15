@@ -16,7 +16,8 @@ function add_tabs( $items ){
   $items = array_slice( $items, 0, 2, true ) + [ 'classes' => __( 'Classes, Exams, and Downloads', 'b2t-student-badge-tabs' ) ] + [ 'certification' => __( 'Certification Program', 'b2t-student-badge-tabs' ) ] + array_slice( $items, 2, null, true ) ;
 
   foreach ($items as $key => $value) {
-    $items[$key] = ucwords( $value );
+    if( 'classes' != $key )
+      $items[$key] = ucwords( $value );
   }
 
   $new_items = [
