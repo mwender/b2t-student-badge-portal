@@ -48,6 +48,15 @@ function enqueue_scripts(){
     if( \BadgePortal\fns\endpoint\is_endpoint( 'classes' ) ){
 
         wp_enqueue_script( 'b2t-student-resources-popup', BADGE_PORTAL_PLUGIN_URL . 'lib/js/student-resources-popup.js', ['jquery'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/student-resources-popup.js' ) );
+        
+        // Get the Elementor popup ID from ACF Options (fall back to empty string if not set)
+        $elementor_popup_id = get_field( 'student_resources_popup', 'option' );
+        if ( empty( $elementor_popup_id ) ) {
+          $elementor_popup_id = '';
+        }
+        wp_localize_script( 'b2t-student-resources-popup', 'popupvars', [
+            'elementor_popup_id' => $elementor_popup_id,
+        ]);
 
         wp_enqueue_script( 'b2t-classes-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/classes-tab.js', ['jquery','handlebars','handlebars-intl'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/classes-tab.js' ), true );
 

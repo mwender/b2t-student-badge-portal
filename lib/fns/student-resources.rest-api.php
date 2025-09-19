@@ -67,10 +67,8 @@ add_action( 'rest_api_init', function () {
 
       $content = apply_filters( 'the_content', $post->post_content );
       if( empty( $content ) ){
-        if( ! empty( $resource_html ) ){
-          $content = 'Download the following resources for <em>' . get_the_title( $post ) . '</em>:';
-        } else {
-          $content = 'No downloads are currently available for <em>' . get_the_title( $post ) . '</em>. Please check back later.';
+        if( empty( $resources_html ) ){
+          $content = '<p>No downloads are currently available for <em>' . get_the_title( $post ) . '</em>. Please check back later.</p>';
         }
       }
 
