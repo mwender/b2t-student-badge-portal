@@ -103,5 +103,9 @@
         </td>
       </tr>
       {{/each}}
+    {{else}}
+      <tr>
+        <td colspan="3" style="text-align:center;"><h3>Class Data Not Found</h3><p>No data returned when querying our records using <a href="#">{{student_email}}</a>.<br><br>Please check with B2T Training and have them verify your account.</p></td>
+      </tr>
     {{/if}}
 </script>
