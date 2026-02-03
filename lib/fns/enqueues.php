@@ -30,8 +30,7 @@ function enqueue_scripts(){
         });
     }
     if( \BadgePortal\fns\endpoint\is_endpoint( 'certification' ) ){
-        wp_register_script( 'open-badges-issuer', 'https://backpack.openbadges.org/issuer.js', null, null, true );
-        wp_enqueue_script( 'b2t-badges-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badges-tab.js', ['jquery','handlebars','handlebars-intl','open-badges-issuer','jquery-ui-tabs'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badges-tab.js' ), true );
+        wp_enqueue_script( 'b2t-badges-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badges-tab.js', ['jquery','handlebars','handlebars-intl','jquery-ui-tabs'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badges-tab.js' ), true );
 
         wp_localize_script( 'b2t-badges-tab', 'wpvars', [
             'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/zh/' ),
