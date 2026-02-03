@@ -46,7 +46,7 @@ function zoho_endpoint(){
               'student_id' => $student_id,
               'data_type' => 'classes',
             ]);
-            $transient_length = ( IS_LOCAL )? 1 * MINUTE_IN_SECONDS : 24 * HOUR_IN_SECONDS ;
+            $transient_length = ( IS_LOCAL )? 5 * MINUTE_IN_SECONDS : 24 * HOUR_IN_SECONDS ;
             set_transient( $transient_id, $response, $transient_length );
           } 
 
