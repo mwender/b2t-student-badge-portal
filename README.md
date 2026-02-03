@@ -1,15 +1,43 @@
 # B2T Student Badge Portal
 **Contributors:** thewebist
 **Tags:** wordpress,woocommerce,salesforce
-**Requires at least:** 6.1.0
-**Tested up to:** 6.7
-**Stable tag:** 1.5.0
+**Requires at least:** 6.7.0
+**Tested up to:** 6.9
+**Stable tag:** 1.6.0
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 A WordPress plugin which provides a listing of B2T Student Badges/Certificates inside a user's WooCommerce account pages.
 
+## Using Your Badge with a Digital Wallet
+
+As of version 1.6.0, badges issued through the B2T Student Badge Portal follow the Open Badges 2.0 standard and are compatible with modern digital badge wallets.
+
+When you click “Add to Backpack” (or equivalent) for a completed badge or certificate:
+
+1. The badge is securely issued by the B2T Training website.
+2. A permanent badge URL is generated.
+3. That badge URL is copied to your clipboard.
+
+You can then paste this URL into a compatible badge wallet to import and store your badge.
+
+Supported wallets include (but are not limited to):
+
+- Badgr
+- Canvas Credentials
+- Other Open Badges 2.0–compatible wallets
+
+The badge URL remains valid permanently and can be reused at any time to re-import the badge if needed.
+
 ## Changelog
+
+### 1.6.0
+* Migrated badge issuance to a modern Open Badges 2.0–compliant flow.
+* Removed dependency on the deprecated OpenBadges Backpack issuer API.
+* Added persistent storage for issued badge assertions.
+* Introduced canonical, privacy-safe assertion URLs (`/assertions/{assertion_id}`).
+* Implemented explicit server-side badge issuance endpoint.
+* Updated frontend badge actions to issue and copy canonical assertion URLs for use with modern badge wallets (Badgr, Canvas Credentials, etc.).
 
 ### 1.5.0
 * Updating the Student Resources Popup to not show any text when there are downloads available but no content added to the Student Resources CPT.
