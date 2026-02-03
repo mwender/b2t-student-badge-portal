@@ -46,51 +46,57 @@ function zoho_endpoint(){
               'student_id' => $student_id,
               'data_type' => 'classes',
             ]);
-            $transient_length = ( IS_LOCAL )? 5 * MINUTE_IN_SECONDS : 24 * HOUR_IN_SECONDS ;
+            $transient_length = ( IS_LOCAL )? 1 * MINUTE_IN_SECONDS : 24 * HOUR_IN_SECONDS ;
             set_transient( $transient_id, $response, $transient_length );
-          }
+          } 
 
-          $classes = $response->records;
+          $classes = false;
+          if( is_object( $response ) && isset( $response->records ) )
+            $classes = $response->records;
 
           /**
            * Build Student Resource page links
            */
-          foreach ( $classes as $key => $obj ) {
+          if( $classes ){
+            foreach ( $classes as $key => $obj ) {
 
-            $class = $obj->Class__r;
+              $class = $obj->Class__r;
 
-            $name = $class->Name;
-            $resource_page = get_page_by_title( $name, OBJECT, 'resource-page' );
-            $resource_page_id = ( $resource_page ) ? $resource_page->ID : null;
+              $name = $class->Name;
+              $resource_page_obj = get_page_by_title( $name, OBJECT, 'resource-page' );
+              $resource_page_id = ( $resource_page_obj ) ? $resource_page_obj->ID : null;
 
-            // Default downloads count
-            $total_downloads = 0;
+              // Default downloads count
+              $total_downloads = 0;
 
-            if ( $resource_page_id ) {
-              // Count repeater rows if they exist
-              if ( have_rows( 'resources', $resource_page_id ) ) {
-                $total_downloads = count( get_field( 'resources', $resource_page_id ) );
+              if ( $resource_page_id ) {
+                // Count repeater rows if they exist
+                if ( have_rows( 'resources', $resource_page_id ) ) {
+                  $total_downloads = count( get_field( 'resources', $resource_page_id ) );
+                }
               }
-            }
 
-            $link_text = '';
-            if( 1 === $total_downloads ){
-              $link_text = '1 Download';
-            } else if( 1 < $total_downloads ){
-              $link_text = $total_downloads . ' Downloads';
-            }
+              $link_text = '';
+              if( 1 === $total_downloads ){
+                $link_text = '1 Download';
+              } else if( 1 < $total_downloads ){
+                $link_text = $total_downloads . ' Downloads';
+              }
 
-            $response->records[ $key ]->resource_page = array(
-              'name'            => $name,
-              'id'              => $resource_page_id,
-              'total_downloads' => $total_downloads,
-              'link_text'       => $link_text,
-            );
+              $response->records[ $key ]->resource_page = array(
+                'name'            => $name,
+                'id'              => $resource_page_id,
+                'total_downloads' => $total_downloads,
+                'link_text'       => $link_text,
+              );
+            }
           }
 
-          $totalSize = ( $response->totalSize )? $response->totalSize : null ;
+          $totalSize = ( is_object( $response ) && isset( $response->totalSize ) && $response->totalSize )? $response->totalSize : null ;
           if( $totalSize ){
             uber_log('🔔 $totalSize = ' . $totalSize );
+            if( 0 < $totalSize )
+              uber_log( '👉 SAMPLE: $response->records[0] = ', $response->records[0] );
           } else {
             uber_log('⚠️ No records returned.');
           }
@@ -196,7 +202,12 @@ function get_student_data( $args = [] ){
   $data = new \stdClass();
   if( $body ){
     $json_body = json_decode( $body );
-    $data = json_decode( $json_body->details->output  );
+    if( isset( $json_body->details->output ) ){
+      $data = json_decode( $json_body->details->output  );
+      uber_log( '✅ Zoho EP sample class: ', $data->records[0] );
+    } else {
+      uber_log( '⚠️ Zoho EP returned: ', $body );
+    }
   }
 
   return $data;
