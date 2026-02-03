@@ -33,11 +33,12 @@ function enqueue_scripts(){
         wp_enqueue_script( 'b2t-badges-tab', BADGE_PORTAL_PLUGIN_URL . 'lib/js/badges-tab.js', ['jquery','handlebars','handlebars-intl','jquery-ui-tabs'], filemtime( BADGE_PORTAL_PLUGIN_PATH . 'lib/js/badges-tab.js' ), true );
 
         wp_localize_script( 'b2t-badges-tab', 'wpvars', [
-            'jsonurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/zh/' ),
+            'jsonurl' => rest_url( BADGE_API_NAMESPACE . '/zh/' ),
             'student_id' => $student_id,
             'student_email' => $current_user->user_email,
-            'criteriaurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/criteria?name=' ),
-            'assertionurl' => site_url( 'wp-json/' . BADGE_API_NAMESPACE . '/assertions' ),
+            'criteriaurl' => rest_url( BADGE_API_NAMESPACE . '/criteria?name=' ),
+            'assertionurl' => rest_url( BADGE_API_NAMESPACE . '/assertions' ),
+            'issueassertionurl' => rest_url( BADGE_API_NAMESPACE . '/issue-assertion' ),
             'default_badge' => BADGE_PORTAL_PLUGIN_URL . 'lib/img/b2t-default-badge.png',
             'nonce' => wp_create_nonce( 'wp_rest' )
         ]);
