@@ -35,6 +35,50 @@ function is_endpoint( $endpoint = false ) {
 }
 
 /**
+ * Build a deterministic, opaque assertion token.
+ *
+ * Used as the canonical assertion ID.
+ *
+ * @param string $email
+ * @param string $slug
+ * @param string $completed YYYY-MM-DD
+ * @return string
+ */
+function build_assertion_token( $email, $slug, $completed ) {
+  $email     = strtolower( trim( $email ) );
+  $slug      = sanitize_title( $slug );
+  $completed = trim( $completed );
+
+  $raw = implode(
+    '|',
+    [
+      $email,
+      $slug,
+      $completed,
+      wp_salt( 'auth' ),
+    ]
+  );
+
+  return hash( 'sha256', $raw );
+}
+
+/**
+ * Build a hashed recipient identity for OB2 assertions.
+ *
+ * @param string $email
+ * @return string
+ */
+function build_recipient_identity_hash( $email ) {
+  $email = strtolower( trim( $email ) );
+
+  return hash(
+    'sha256',
+    $email . wp_salt( 'auth' )
+  );
+}
+
+
+/**
  * Register Open Badges REST API endpoints.
  *
  * @return void
@@ -301,5 +345,189 @@ function student_portal_endpoints() {
       'permission_callback' => '__return_true',
     ]
   );
+
+  /**
+   * Returns a canonical Open Badges 2.0 Assertion by assertion_id.
+   *
+   * Example:
+   * https://example.com/wp-json/b2tbadges/v1/assertions/{assertion_id}
+   */
+  register_rest_route(
+    BADGE_API_NAMESPACE,
+    '/assertions/(?P<assertion_id>[a-f0-9]{64})',
+    [
+      'methods'  => 'GET',
+      'callback' => function( \WP_REST_Request $request ) {
+        global $wpdb;
+
+        $assertion_id = $request['assertion_id'];
+        $table_name   = $wpdb->prefix . 'b2t_badge_assertions';
+
+        $row = $wpdb->get_row(
+          $wpdb->prepare(
+            "SELECT assertion_json
+             FROM {$table_name}
+             WHERE assertion_id = %s
+               AND revoked_at IS NULL
+             LIMIT 1",
+            $assertion_id
+          )
+        );
+
+        if ( ! $row ) {
+          return new \WP_Error(
+            'b2t_assertion_not_found',
+            'Assertion not found.',
+            [ 'status' => 404 ]
+          );
+        }
+
+        $assertion = json_decode( $row->assertion_json, true );
+
+        if ( empty( $assertion ) ) {
+          return new \WP_Error(
+            'b2t_assertion_invalid',
+            'Stored assertion is invalid.',
+            [ 'status' => 500 ]
+          );
+        }
+
+        return rest_ensure_response( $assertion );
+      },
+      'permission_callback' => '__return_true',
+    ]
+  );
+/////
+  /**
+   * Issues (creates and stores) an Open Badges 2.0 Assertion.
+   *
+   * Example:
+   * POST https://example.com/wp-json/b2tbadges/v1/issue-assertion
+   * {
+   *   "email": "user@example.com",
+   *   "badge": "agile-analysis",
+   *   "completed": "2017-04-21"
+   * }
+   */
+  register_rest_route(
+    BADGE_API_NAMESPACE,
+    '/issue-assertion',
+    [
+      'methods'  => 'POST',
+      'callback' => function( \WP_REST_Request $request ) {
+        global $wpdb;
+
+        $email     = strtolower( trim( $request['email'] ) );
+        $slug      = sanitize_title( $request['badge'] );
+        $completed = $request['completed'];
+
+        if ( ! is_email( $email ) ) {
+          return new \WP_Error(
+            'b2t_invalid_email',
+            'Invalid email address.',
+            [ 'status' => 400 ]
+          );
+        }
+
+        if ( ! preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $completed ) ) {
+          return new \WP_Error(
+            'b2t_invalid_completed',
+            '`completed` must be in format YYYY-MM-DD.',
+            [ 'status' => 400 ]
+          );
+        }
+
+        if ( ! get_page_by_path( $slug, OBJECT, 'badge' ) ) {
+          return new \WP_Error(
+            'b2t_badge_not_found',
+            'No badge found with slug: ' . $slug,
+            [ 'status' => 404 ]
+          );
+        }
+
+        $assertion_id   = build_assertion_token( $email, $slug, $completed );
+        $recipient_hash = build_recipient_identity_hash( $email );
+        $issued_on      = gmdate( 'Y-m-d', strtotime( $completed ) );
+
+        $canonical_url = site_url(
+          'wp-json/b2tbadges/v1/assertions/' . $assertion_id
+        );
+
+        $table_name = $wpdb->prefix . 'b2t_badge_assertions';
+
+        // If assertion already exists, return it.
+        $existing = $wpdb->get_row(
+          $wpdb->prepare(
+            "SELECT assertion_json
+             FROM {$table_name}
+             WHERE assertion_id = %s
+               AND revoked_at IS NULL
+             LIMIT 1",
+            $assertion_id
+          )
+        );
+
+        if ( $existing ) {
+          return rest_ensure_response(
+            json_decode( $existing->assertion_json, true )
+          );
+        }
+
+        // Build OB 2.0 assertion.
+        $assertion = [
+          '@context'     => 'https://w3id.org/openbadges/v2',
+          'type'         => 'Assertion',
+          'id'           => $canonical_url,
+          'recipient'    => [
+            'type'     => 'email',
+            'hashed'   => true,
+            'identity' => 'sha256$' . $recipient_hash,
+          ],
+          'issuedOn'     => $issued_on,
+          'badge'        => site_url(
+            'wp-json/b2tbadges/v1/badge-class?name=' . $slug
+          ),
+          'verification' => [
+            'type' => 'HostedBadge',
+          ],
+        ];
+
+        $inserted = $wpdb->insert(
+          $table_name,
+          [
+            'assertion_id'   => $assertion_id,
+            'recipient_hash' => $recipient_hash,
+            'badge_slug'     => $slug,
+            'issued_on'      => $issued_on,
+            'assertion_json' => wp_json_encode( $assertion ),
+            'created_at'     => current_time( 'mysql', true ),
+            'revoked_at'     => null,
+          ],
+          [
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+          ]
+        );
+
+        if ( false === $inserted ) {
+          return new \WP_Error(
+            'b2t_assertion_insert_failed',
+            'Failed to store assertion.',
+            [ 'status' => 500 ]
+          );
+        }
+
+        return rest_ensure_response( $assertion );
+      },
+      'permission_callback' => '__return_true',
+    ]
+  );
+
+/////
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\student_portal_endpoints' );
