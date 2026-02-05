@@ -71,10 +71,7 @@ function build_assertion_token( $email, $slug, $completed ) {
 function build_recipient_identity_hash( $email ) {
   $email = strtolower( trim( $email ) );
 
-  return hash(
-    'sha256',
-    $email . wp_salt( 'auth' )
-  );
+  return hash( 'sha256', $email );
 }
 
 
@@ -108,14 +105,10 @@ function student_portal_endpoints() {
         $issued_on = gmdate( 'Y-m-d', strtotime( $completed ) );
 
         // Canonical Assertion URL (hosted verification).
-        $assertion_id = add_query_arg(
-          [
-            'email'     => $email,
-            'badge'     => $slug,
-            'completed' => $completed,
-          ],
-          site_url( 'wp-json/b2tbadges/v1/assertions' )
-        );
+        $assertion_token = build_assertion_token( $email, $slug, $completed );
+        $assertion_id = site_url(
+          'wp-json/b2tbadges/v1/assertions/' . $assertion_token
+        );        
 
         /**
          * Hash recipient identity.
@@ -123,10 +116,7 @@ function student_portal_endpoints() {
          * Assertions are publicly accessible, so recipient email
          * should not be exposed in clear text.
          */
-        $recipient_hash = hash(
-          'sha256',
-          $email . wp_salt( 'auth' )
-        );
+        $recipient_hash = build_recipient_identity_hash( $email );
 
         $assertion = [
           '@context'     => 'https://w3id.org/openbadges/v2',
@@ -330,14 +320,16 @@ function student_portal_endpoints() {
       'callback' => function() {
 
         $issuer_id = site_url( '/wp-json/b2tbadges/v1/issuer' );
+        $email     = apply_filters( 'b2t_badges_issuer_email', get_option( 'admin_email' ) );
 
         $data = [
-          '@context' => 'https://w3id.org/openbadges/v2',
-          'type'     => 'Issuer',
-          'id'       => $issuer_id,
-          'name'     => get_bloginfo( 'name' ),
-          'url'      => get_bloginfo( 'url' ),
-          'image'    => get_site_icon_url(),
+          '@context'  => 'https://w3id.org/openbadges/v2',
+          'type'      => 'Issuer',
+          'id'        => $issuer_id,
+          'name'      => get_bloginfo( 'name' ),
+          'url'       => get_bloginfo( 'url' ),
+          'email'     => $email,
+          'image'     => get_site_icon_url(),
         ];
 
         return rest_ensure_response( $data );
