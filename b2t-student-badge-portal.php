@@ -29,6 +29,7 @@ require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
 
 // Include files
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/badge_cpt.php' );
+require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/cors.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/content.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/endpoints.php' );
 require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
