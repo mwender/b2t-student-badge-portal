@@ -24,3 +24,18 @@ add_filter(
   10,
   4
 );
+
+add_action(
+  'rest_api_init',
+  function () {
+    register_rest_route(
+      BADGE_API_NAMESPACE,
+      '/(?P<any>.*)',
+      [
+        'methods'             => 'OPTIONS',
+        'callback'            => '__return_true',
+        'permission_callback' => '__return_true',
+      ]
+    );
+  }
+);
