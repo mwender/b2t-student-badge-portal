@@ -102,7 +102,8 @@ function student_portal_endpoints() {
         $slug      = sanitize_title( $request['badge'] );
         $completed = $request['completed'];
 
-        $issued_on = gmdate( 'Y-m-d', strtotime( $completed ) );
+        $issued_on = gmdate( 'c', strtotime( $completed . ' 00:00:00' ) );
+
 
         // Canonical Assertion URL (hosted verification).
         $assertion_token = build_assertion_token( $email, $slug, $completed );
@@ -439,7 +440,7 @@ function student_portal_endpoints() {
 
         $assertion_id   = build_assertion_token( $email, $slug, $completed );
         $recipient_hash = build_recipient_identity_hash( $email );
-        $issued_on      = gmdate( 'Y-m-d', strtotime( $completed ) );
+        $issued_on = gmdate( 'c', strtotime( $completed . ' 00:00:00' ) );
 
         $canonical_url = site_url(
           'wp-json/b2tbadges/v1/assertions/' . $assertion_id
