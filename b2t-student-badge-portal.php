@@ -55,7 +55,7 @@ function b2t_create_badge_assertions_table() {
       assertion_id CHAR(64) NOT NULL,
       recipient_hash CHAR(64) NOT NULL,
       badge_slug VARCHAR(190) NOT NULL,
-      issued_on DATE NOT NULL,
+      issued_on DATETIME NOT NULL,
       assertion_json LONGTEXT NOT NULL,
       created_at DATETIME NOT NULL,
       revoked_at DATETIME NULL,

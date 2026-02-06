@@ -74,6 +74,22 @@ function build_recipient_identity_hash( $email ) {
   return hash( 'sha256', $email );
 }
 
+/**
+ * Build issuedOn timestamps in both formats we need:
+ * - ISO 8601 (JSON)
+ * - MySQL DATETIME (DB)
+ *
+ * @param string $completed YYYY-MM-DD.
+ * @return array{iso:string,mysql:string}
+ */
+function build_issued_on_timestamps( $completed ) {
+  $timestamp = strtotime( trim( $completed ) . ' 00:00:00' );
+
+  return [
+    'iso'   => gmdate( 'c', $timestamp ),
+    'mysql' => gmdate( 'Y-m-d H:i:s', $timestamp ),
+  ];
+}
 
 /**
  * Register Open Badges REST API endpoints.
@@ -102,14 +118,13 @@ function student_portal_endpoints() {
         $slug      = sanitize_title( $request['badge'] );
         $completed = $request['completed'];
 
-        $issued_on = gmdate( 'c', strtotime( $completed . ' 00:00:00' ) );
-
+        $issued_on = build_issued_on_timestamps( $completed );
 
         // Canonical Assertion URL (hosted verification).
         $assertion_token = build_assertion_token( $email, $slug, $completed );
-        $assertion_id = site_url(
+        $assertion_id    = site_url(
           'wp-json/b2tbadges/v1/assertions/' . $assertion_token
-        );        
+        );
 
         /**
          * Hash recipient identity.
@@ -128,7 +143,7 @@ function student_portal_endpoints() {
             'hashed'   => true,
             'identity' => 'sha256$' . $recipient_hash,
           ],
-          'issuedOn'     => $issued_on,
+          'issuedOn'     => $issued_on['iso'],
           'badge'        => site_url(
             'wp-json/b2tbadges/v1/badge-class?name=' . $slug
           ),
@@ -390,7 +405,7 @@ function student_portal_endpoints() {
       'permission_callback' => '__return_true',
     ]
   );
-/////
+
   /**
    * Issues (creates and stores) an Open Badges 2.0 Assertion.
    *
@@ -440,7 +455,7 @@ function student_portal_endpoints() {
 
         $assertion_id   = build_assertion_token( $email, $slug, $completed );
         $recipient_hash = build_recipient_identity_hash( $email );
-        $issued_on = gmdate( 'c', strtotime( $completed . ' 00:00:00' ) );
+        $issued_on      = build_issued_on_timestamps( $completed );
 
         $canonical_url = site_url(
           'wp-json/b2tbadges/v1/assertions/' . $assertion_id
@@ -476,7 +491,7 @@ function student_portal_endpoints() {
             'hashed'   => true,
             'identity' => 'sha256$' . $recipient_hash,
           ],
-          'issuedOn'     => $issued_on,
+          'issuedOn'     => $issued_on['iso'],
           'badge'        => site_url(
             'wp-json/b2tbadges/v1/badge-class?name=' . $slug
           ),
@@ -491,7 +506,7 @@ function student_portal_endpoints() {
             'assertion_id'   => $assertion_id,
             'recipient_hash' => $recipient_hash,
             'badge_slug'     => $slug,
-            'issued_on'      => $issued_on,
+            'issued_on'      => $issued_on['mysql'],
             'assertion_json' => wp_json_encode( $assertion ),
             'created_at'     => current_time( 'mysql', true ),
             'revoked_at'     => null,
@@ -520,7 +535,5 @@ function student_portal_endpoints() {
       'permission_callback' => '__return_true',
     ]
   );
-
-/////
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\student_portal_endpoints' );
