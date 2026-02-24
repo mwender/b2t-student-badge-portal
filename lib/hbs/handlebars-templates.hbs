@@ -109,3 +109,22 @@
       </tr>
     {{/if}}
 </script>
+<script id="badge-assertion-modal-template" type="text/x-handlebars-template">
+  <div class="b2t-assertion-modal" id="b2t-assertion-modal" aria-hidden="true">
+    <div class="b2t-assertion-modal__overlay" data-b2t-modal-close></div>
+    <div class="b2t-assertion-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="b2t-assertion-modal-title">
+      <div class="b2t-assertion-modal__header">
+        <h3 id="b2t-assertion-modal-title">Badge issued</h3>
+        <button type="button" class="b2t-assertion-modal__close" data-b2t-modal-close aria-label="Close modal">Close</button>
+      </div>
+      <p class="b2t-assertion-modal__copy">Copy the badge URL below and paste it into your badge wallet (Badgr, Canvas Credentials, etc.).</p>
+      <label for="b2t-assertion-url">Badge URL</label>
+      <input id="b2t-assertion-url" type="text" readonly value="" />
+      <div class="b2t-assertion-modal__actions">
+        <button type="button" class="b2t-button" data-b2t-copy>Copy</button>
+        <button type="button" class="b2t-button b2t-button--secondary" data-b2t-select>Select</button>
+      </div>
+      <p class="b2t-assertion-modal__status" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</script>
