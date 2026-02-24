@@ -23,21 +23,27 @@ define( 'BADGE_LOCALE', get_locale() );
 if ( ! defined( 'IS_LOCAL' ) )
   define( 'IS_LOCAL', false );
 
+/**
+ * Autoload function files from /lib/fns/.
+ *
+ * Loads any PHP file placed in the child theme's `lib/fns` directory.
+ *
+ * @return void
+ */
+function bp_autoload_function_files() {
+  require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
 
-// Load libraries
-require ( BADGE_PORTAL_PLUGIN_PATH . 'lib/typerocket/init.php' );
+  $dir = BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/';
 
-// Include files
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/badge_cpt.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/cors.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/content.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/endpoints.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/enqueues.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/inlinestyles.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/student-resources.rest-api.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/utilities.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/woocommerce.php' );
-require_once( BADGE_PORTAL_PLUGIN_PATH . 'lib/fns/zoho.php' );
+  if ( ! is_dir( $dir ) ) {
+    return;
+  }
+
+  foreach ( glob( $dir . '*.php' ) as $file ) {
+    require_once $file;
+  }
+}
+add_action( 'after_setup_theme', 'bp_autoload_function_files' );
 
 /**
  * Create the badge assertions table.
