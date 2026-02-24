@@ -140,16 +140,9 @@ function zoho_endpoint(){
       return $response;
     },
     'permission_callback' => function(){
-      if( IS_LOCAL )
-        return true;
-
-      check_ajax_referer( 'wp_rest', 'security', false );
-
       if( ! current_user_can( 'read' ) ){
         return new \WP_Error( 'rest_forbidden', __( 'Permission denied, user does not have `read` permissions.' ), ['status' => 401] );
       }
-
-
       return true;
     }
   ]);
