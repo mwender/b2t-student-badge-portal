@@ -422,12 +422,13 @@ function student_portal_endpoints() {
     '/issue-assertion',
     [
       'methods'  => 'POST',
+      'permission_callback' => '__return_true',
       'callback' => function( \WP_REST_Request $request ) {
         global $wpdb;
 
-        $email     = strtolower( trim( $request['email'] ) );
-        $slug      = sanitize_title( $request['badge'] );
-        $completed = $request['completed'];
+        $email     = strtolower( trim( (string) $request->get_param( 'email' ) ) );
+        $slug      = sanitize_title( (string) $request->get_param( 'badge' ) );
+        $completed = (string) $request->get_param( 'completed' );
 
         if ( ! is_email( $email ) ) {
           return new \WP_Error(
@@ -532,7 +533,6 @@ function student_portal_endpoints() {
 
         return rest_ensure_response( $assertion );
       },
-      'permission_callback' => '__return_true',
     ]
   );
 }
