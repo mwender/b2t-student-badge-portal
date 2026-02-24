@@ -74,40 +74,40 @@ Replace the current `alert()`-only UX with an explicit user-driven copy action:
 ## Detailed TODO List
 
 **Phase 1: Discovery & Repro**
-- [ ] Reproduce the Safari failure on the same environment and capture console errors.
-- [ ] Verify whether `navigator.clipboard` exists in Safari for this page.
-- [ ] Confirm whether `navigator.clipboard.writeText()` rejects and capture the exact error.
-- [ ] Verify that the page is served over HTTPS (clipboard requirement).
+- [x] Reproduce the Safari failure on the same environment and capture console errors.
+- [x] Verify whether `navigator.clipboard` exists in Safari for this page.
+- [x] Confirm whether `navigator.clipboard.writeText()` rejects and capture the exact error.
+- [x] Verify that the page is served over HTTPS (clipboard requirement).
 
 **Phase 2: UX Decision**
-- [ ] Decide on the primary UX: custom modal vs `prompt()` fallback.
-- [ ] Decide where to define the modal markup: inline injection vs Handlebars template.
-- [ ] Decide where to place styling: existing LESS file vs new `_modal.less` import.
+- [x] Decide on the primary UX: custom modal vs `prompt()` fallback. DECISION: Custom Modal
+- [x] Decide where to define the modal markup: inline injection vs Handlebars template. DECISION: Add modal markup to `lib/hbs/handlesbars-templates.hbs`
+- [x] Decide where to place styling: existing LESS file vs new `_modal.less` import. DECISION: Add new `lib/less/_modal.less`, wire it up inside `lib/less/main.less` and compile with `grunt build`
 
 **Phase 3: Implementation (JS)**
-- [ ] Implement a `copyToClipboard()` helper with promise handling and fallbacks.
-- [ ] Add a modal open/close flow that is triggered after a successful assertion response.
-- [ ] Ensure the copy action is bound to a user gesture (Copy button click).
-- [ ] Preserve existing error messaging when assertion issuance fails.
+- [x] Implement a `copyToClipboard()` helper with promise handling and fallbacks.
+- [x] Add a modal open/close flow that is triggered after a successful assertion response.
+- [x] Ensure the copy action is bound to a user gesture (Copy button click).
+- [x] Preserve existing error messaging when assertion issuance fails.
 
 **Phase 4: Implementation (UI/CSS)**
-- [ ] Add modal markup with URL display, Copy, and Select buttons.
-- [ ] Style the modal for readability and ensure a high `z-index`.
-- [ ] Ensure modal is keyboard-accessible (focusable buttons, ESC to close if feasible).
+- [x] Add modal markup with URL display, Copy, and Select buttons.
+- [x] Style the modal for readability and ensure a high `z-index`.
+- [x] Ensure modal is keyboard-accessible (focusable buttons, ESC to close if feasible).
 
 **Phase 5: Fallbacks**
-- [ ] Implement legacy `execCommand('copy')` fallback when Clipboard API is unavailable.
-- [ ] Add manual selection flow if clipboard copy fails.
-- [ ] Ensure user always sees the assertion URL even on failure.
+- [x] Implement legacy `execCommand('copy')` fallback when Clipboard API is unavailable.
+- [x] Add manual selection flow if clipboard copy fails.
+- [x] Ensure user always sees the assertion URL even on failure.
 
 **Phase 6: Regression Testing**
-- [ ] Test Safari: copy success, fallback path, and manual copy path.
-- [ ] Test Chrome: copy success and no regressions to UI.
-- [ ] Test Firefox: verify Clipboard API behavior and fallback logic.
+- [x] Test Safari: copy success, fallback path, and manual copy path.
+- [x] Test Chrome: copy success and no regressions to UI.
+- [x] Test Firefox: verify Clipboard API behavior and fallback logic.
 
 **Phase 7: Cleanup**
-- [ ] Remove any temporary console logging added for debugging.
-- [ ] Verify no unused helper functions remain.
+- [x] Remove any temporary console logging added for debugging.
+- [x] Verify no unused helper functions remain.
 
 ## Concrete Implementation Steps
 1. Update `lib/js/badges-tab.js`:
