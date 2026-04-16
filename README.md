@@ -3,7 +3,7 @@
 **Tags:** wordpress,woocommerce,salesforce
 **Requires at least:** 6.7.0
 **Tested up to:** 6.9
-**Stable tag:** 1.7.0
+**Stable tag:** 1.7.1
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ Supported wallets include (but are not limited to):
 The badge URL remains valid permanently and can be reused at any time to re-import the badge if needed.
 
 ## Changelog
+
+### 1.7.1
+* Dropping cache timeout for `wp-json/zh/getStudentClasses` from 24 hours to 30 minutes.
 
 ### 1.7.0
 * Replacing browser dialog with modal for delivery of badge URLs.
